@@ -4,7 +4,14 @@ I am going to make a Kanban board website fitted for multiple unique users to cr
 A Kanban board tells everyone the status of a current project or job.
 This method gives an easy view and optimized flow of work in progress that leaves room for continuous improvement.
 
-## Fulfilling Requirements
+
+## MVP Requirements
+- Login user
+- Create board
+- Create Cards
+- Drag and drop
+
+## Fulfilling Project Requirements
 - [ ] This project will have users [log-in] and create a board. 
 - [ ]  The board owner can [create] the different stages of process for their project and create task cards that need to be done
 - [ ]  Users can expand a card to view [read] more details about the task
