@@ -4,9 +4,70 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login to Kanban Do</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Login to Can Do</title>
 </head>
 <body>
-    
+    <div class="w3-bar w3-light-blue">
+        <span class="w3-bar-item w3-padding-16">Can Do</span>
+    </div>
+    <div class="w3-container">
+        <div class="w3-half w3-border-right">
+            <div class="w3-container">
+                <h2>Registration</h2>
+            </div>
+            <form action="#" method="POST" class="w3-container">
+                {% csrf_token %}
+                <div class="w3-margin-bottom">
+                    <label for="first">First Name</label>
+                    <input type="text" id="first" name="fname" class="w3-input w3-light-gray w3-border w3-round-large">
+                </div>
+                <div class="w3-margin-bottom">
+                    <label for="last">Last Name</label>
+                    <input type="text" id="last" name="lname" class="w3-input w3-light-gray w3-border w3-round-large">
+                </div>
+                <div class="w3-margin-bottom">
+                    <label for="user">Username</label>
+                    <input type="text" id="user" name="uname" class="w3-input w3-light-gray w3-border w3-round-large">
+                </div>
+                <div class="w3-margin-bottom">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="w3-input w3-light-gray w3-border w3-round-large">
+                </div>
+                <div class="w3-margin-bottom">
+                    <label for="pw">Password</label>
+                    <input type="password" id="pw" name="pw" class="w3-input w3-light-gray w3-border w3-round-large">
+                </div>
+                <div class="w3-margin-bottom">
+                    <label for="cpw">Confirm Password</label>
+                    <input type="password" id="cpw" name="confpw" class="w3-input w3-light-gray w3-border w3-round-large">
+                </div>
+                <div class="w3-display-container">
+                    <button class="w3-btn w3-blue w3-display-topmiddle">Register</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="w3-half">
+            <div class="w3-container">
+                <h2>Login</h2>
+            </div>
+            <form action="#" method="POST" class="w3-container">
+                {% csrf_token %}
+                <div class="w3-margin-bottom">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="w3-input w3-light-gray w3-border w3-round-large">
+                </div>
+                <div class="w3-margin-bottom">
+                    <label for="pw">Password</label>
+                    <input type="password" id="pw" name="pw" class="w3-input w3-light-gray w3-border w3-round-large">
+                </div>
+                <div class="w3-display-container">
+                    <button class="w3-btn w3-light-blue w3-display-topmiddle">Login</button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
 </body>
 </html>
