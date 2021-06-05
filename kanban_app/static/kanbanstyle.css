@@ -1,0 +1,10 @@
+#workspace{
+    width: 500%;
+    height: 48em;
+    overflow-x: scroll;
+}
+
+.tcol{
+    width: 300px;
+    margin: 0 8px;
+}
