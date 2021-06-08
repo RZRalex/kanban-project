@@ -1,10 +1,35 @@
 #workspace{
-    width: 500%;
-    height: 48em;
+    height: 100%;
+    display: flex;
     overflow-x: scroll;
+    margin-right: 8px;
 }
 
 .tcol{
-    width: 300px;
+    width: 325px;
+    height: 700px;
     margin: 0 8px;
+    flex-shrink: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
+
+.notes{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 92%;
+}
+
+.addcol{
+    border: 1px dotted gray;
+    width: 325px;
+    height: 180px;
+    margin: 0 8px;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+
+/* .image{
+    width: 100%;
+} */

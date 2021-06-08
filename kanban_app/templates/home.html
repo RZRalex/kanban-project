@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="../static/kanbanstyle.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/solid.css" integrity="sha384-LA8Ug4T/nhVkyhrSmSirsoAo9iDrBk8E7U80aSPeD+w3vO8PzOJIS6agGcbIwwX0" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/jquery-ui.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/fontawesome.css" integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../static/jquery-ui.js" defer></script>
+    <script src="../static/kb.js" defer></script>
     <title>Can Do</title>
 </head>
 <body>
@@ -19,44 +25,99 @@
     <div class="w3-bar w3-amber w3-margin-bottom">
         <h1 class="w3-bar-item">Project Renovation</h1>
     </div>
-    <div class="w3-row" id="workspace">
 
-        <div class="w3-col tcol w3-pale-blue">
-            <div class="w3-container w3-light-blue">
-                <h3>Work Pool</h3>
-            </div>
-            <div class="w3-container">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
-            </div>
-        </div>
-        <div class="w3-col tcol w3-pale-yellow">
-            <div class="w3-container w3-khaki">
-                <h3>In Progress</h3>
-            </div>
-            <div class="w3-container w3-padding-16">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
-            </div>
-            <div class="w3-container">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
-            </div>
-        </div>
-        <div class="w3-col tcol w3-pale-green">
-            <div class="w3-container w3-light-green">
-                <h3>Done</h3>
-            </div>
-            <div class="w3-container">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
-            </div>
-        </div>
-        <div class="w3-col tcol w3-pale-red">
-            <div class="w3-container w3-red w3-opacity">
-                <h3>Problem</h3>
-            </div>
-            <div class="w3-container">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
-            </div>
-        </div>
+    <div class="wrapper">
+        <div class="w3-row" id="workspace">
 
+            <div class="w3-col tcol w3-border w3-round-xlarge">  <!-- w3-pale-blue  for bg-->
+                <div class="w3-container w3-border-bottom w3-light-blue">
+                    <h3>Work Pool</h3>
+                </div>
+                <div class="notes">
+                    <div class="w3-container w3-card-4 w3-margin w3-round-large w3-light-blue">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
+                    </div>
+                    <div class="w3-container w3-card-4 w3-margin w3-round-large w3-light-blue">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="w3-container w3-card-4 w3-margin w3-round-large w3-light-blue">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- css to reference child divs to certain color -->
+            <div class="w3-col tcol w3-border w3-round-xlarge">   <!-- w3-pale-yellow  for bg-->
+                <div class="w3-container  w3-border-bottom w3-khaki">
+                    <h3>In Progress</h3>
+                </div>
+                <div class="notes">
+                    <div class="w3-container w3-card-4 w3-margin w3-round-large w3-khaki">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
+                    </div>
+                    <div class="w3-container w3-card-4 w3-margin w3-round-large w3-khaki">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
+                    </div>
+                    <div class="w3-container w3-card-4 w3-margin w3-round-large w3-khaki">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
+                    </div>
+                    <div class="w3-container w3-card-4 w3-margin w3-round-large w3-khaki">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
+                    </div>
+                    <div class="w3-container w3-card-4 w3-margin w3-round-large w3-khaki">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-col tcol w3-border w3-round-xlarge">
+                <div class="w3-container w3-border-bottom w3-light-green">
+                    <h3>Done</h3>
+                </div>
+                <div class="notes">
+                    <div class="w3-container w3-card-4 w3-margin w3-round-large w3-light-green">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-col tcol w3-border w3-round-xlarge">
+                <div class="w3-container w3-border-bottom w3-deep-orange">
+                    <h3>Problem</h3>
+                </div>
+                <div class="notes">
+                    <div class="w3-container w3-card-4 w3-margin w3-round-large w3-deep-orange">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- <div class="w3-col addcol w3-round-xlarge">
+                <a href=""><h4><i class="fas fa-plus fa-fw w3-medium"></i> Add column</h4></a>
+            </div> -->
+            <button class="w3-col addcol w3-button w3-round-xlarge"><h4><i class="fas fa-plus fa-fw w3-medium"></i> Add column</h4></button>
+
+    
+            <!-- End of #workspace -->
+        </div>
     </div>
+
+
+    <!-- Modal space -->
+
+    <!-- New Column Modal -->
+    <div id="coladd" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container">
+                <span class="w3-button w3-display-topright">&times;</span>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <p>
+                    <label for="colm">Column Title</label>
+                    <input type="text" id="colm" name="coltitle" class="w3-input w3-border w3-light-grey"></p>
+
+                    <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

@@ -4,9 +4,132 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="../static/kanbanstyle.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/solid.css" integrity="sha384-LA8Ug4T/nhVkyhrSmSirsoAo9iDrBk8E7U80aSPeD+w3vO8PzOJIS6agGcbIwwX0" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/fontawesome.css" integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../static/kb.js" defer></script>
     <title>User Profile</title>
 </head>
 <body>
     <!-- insert navbar -->
+    <div class="w3-bar w3-light-blue">
+        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hover-light-blue">Welcome to Can Do</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-16">Profile</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-16">Tasks</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-16">New Board +</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-right">Logout</a>
+    </div>
+
+    <div class="w3-content w3-margin-top w3-light-grey">
+        <div class="w3-row-padding">
+
+            <div class="w3-third">
+                <div class="w3-card-4 w3-text-grey w3-white">
+                    <!-- <div class="w3-display-container">
+                        <img src="#" alt="profile picture" class="image">
+                    </div> -->
+                    
+                    <div class="w3-container">
+                        <h2><i class="fa fa-user fa-fw w3-margin-right w3-large w3-text-light-blue"></i>Profile Person</h2>
+                        <p><i class="fa fa-at fa-fw w3-margin-right w3-large w3-text-light-blue"></i>Username</p>
+                        <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-light-blue"></i>ex@mail.com</p>
+                        <p><i class="fa fa-calendar fa-fw w3-margin-right w3-large w3-text-light-blue"></i>Member since:</p>
+                        
+                        <button class="profbox w3-button w3-round-large w3-right w3-margin-bottom"><i class="fa fa-edit w3-large w3-text-light-blue"></i>Edit</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="w3-twothird">
+    
+                <div class="w3-container w3-card w3-white w3-margin-bottom">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fas fa-book-reader w3-margin-right w3-xxlarge w3-text-light-blue"></i>About Me</h2>
+                    <div class="w3-container">
+                        <!-- user.about_me goes here -->
+                        <p>Lorem ipsum dolor sit amet. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
+                        <!-- button for Modal -->
+                        <button class="editbox w3-button w3-round-large w3-right w3-margin-bottom"><i class="fa fa-edit w3-large w3-text-light-blue"></i>Edit</button>
+                    </div>
+
+                </div>
+
+                <div class="w3-container w3-card w3-white">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fas fa-sticky-note w3-margin-right w3-xxlarge w3-text-light-blue"></i>Task Cards</h2>
+                    
+                    <!-- Task cards to generate -->
+                    <div class="w3-container"> 
+                        <h5 class="w3-opacity"><b>W3Schools.com</b></h5>
+                        <p>Web Development! All I need to know in one place</p>
+                        <hr>
+                    </div>
+
+
+
+                </div>
+                <!-- End Right Column -->
+            </div>
+        </div>
+
+        <!-- End of content -->
+    </div>
+
+    <!-- Editing Modal -->
+    <div id="editabout" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container w3-light-blue">
+                <h3>Your Info</h3>
+            </div>
+            <div class="w3-container">
+                <span class="w3-button w3-display-topright">&times;</span>
+                <form action="#" class="w3-container" method="POST">
+                    {% csrf_token %}
+                    <h5>Edit your About Me</h5>
+                    <textarea name="aboutme" id="abt" cols="60" rows="5" class="w3-margin-bottom"></textarea>
+                    <br>
+                    <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
+                    <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Prof Modal -->
+    <div id="editprof" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container w3-light-blue">
+                <h3>Your Info</h3>
+            </div>
+            <div class="w3-container">
+                <span class="w3-button w3-display-topright">&times;</span>
+                <form action="#" class="w3-container" method="POST">
+                    {% csrf_token %}
+                    <h5>Edit your Profile</h5>
+                    <p>
+                    <label for="fname">First Name</label>
+                    <input type="text" id="fname" name="first" class="w3-input w3-border w3-light-grey"></p>
+
+                    <p>
+                    <label for="lname">Last Name</label>
+                    <input type="text" id="lname" name="last" class="w3-input w3-border w3-light-grey"></p>
+
+                    <p>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="uname" class="w3-input w3-border w3-light-grey"></p>
+
+                    <p>
+                    <label for="em">Email</label>
+                    <input type="email" id="em" name="email" class="w3-input w3-border w3-light-grey"></p>
+                    
+                    <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
+                    <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

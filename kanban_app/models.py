@@ -44,6 +44,7 @@ class user(models.Model):
     last_name = models.CharField(max_length=55)
     username = models.CharField(max_length=25)
     email = models.CharField(max_length=255)
+    about_me = models.TextField(default="Some info should be here!")
     password = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -68,7 +69,7 @@ class status(models.Model):
     title = models.CharField(max_length=55)
     created_by = models.ForeignKey(user, related_name='status_columns', on_delete=CASCADE)
     for_board = models.ForeignKey(board, related_name='status_columns', on_delete=CASCADE)
-    color = models.CharField(max_length=25)
+    color = models.CharField(max_length=25, default='light-gray')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # status.cards
@@ -77,7 +78,6 @@ class card(models.Model):
     content = models.TextField()
     created_by = models.ForeignKey(user, related_name='cards', on_delete=CASCADE)
     status = models.ForeignKey(status, related_name='cards', on_delete=CASCADE)
-    color = models.CharField(max_length=25)
     owners = models.ManyToManyField(user, related_name='working_on')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -85,4 +85,4 @@ class card(models.Model):
     # card.user
     # card.status
     # card.owners
-
+    # color = models.CharField(max_length=25)  deprecating to have status hold color only
