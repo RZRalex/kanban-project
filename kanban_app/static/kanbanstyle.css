@@ -29,6 +29,11 @@
     text-align: center;
 }
 
+.lite-gray .notes .w3-container, .lite-gray .w3-container{
+    background-color: #c5c5c5;
+}
+
+
 
 /* .image{
     width: 100%;

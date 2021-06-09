@@ -13,20 +13,20 @@ class usermanager(models.Manager):
             errors['first_name'] = "User name should be at least 2 characters"
         if len(postData['lname']) < 2:
             errors['last_name'] = "User's last name should be at least 2 characters"
-        if len(postData['username']) < 5:
+        if len(postData['uname']) < 5:
             errors['username'] = "Username should be at least 5 characters"
-        if not USER_REGEX.match(postData['username']):
+        if not USER_REGEX.match(postData['uname']):
             errors['username'] = "Username should not have specialized symbols or spaces"
         if not EMAIL_REGEX.match(postData['email']):
             errors['email'] = "Invalid email address"
         User = self.filter(email=postData['email'])
         if User:
             errors['email'] = "Email is already in use"
-        if len(postData['password']) < 8:
+        if len(postData['pw']) < 5:
             errors['password'] = "Password should be at least 8 characters long"
-        if len(postData['password']) > 32:
+        if len(postData['pw']) > 32:
             errors['password len'] = "Password should be less than 32 characters"
-        if postData['password'] != postData['confpass']:
+        if postData['pw'] != postData['confpw']:
             errors['match'] = "Passwords should match each other"
         return errors
 
@@ -51,38 +51,39 @@ class user(models.Model):
     objects = usermanager()
     # user.user_boards
     # user.boards_imin
-    # user.status_columns
+    # user.columns
     # user.cards
     # user.working_on
 
 class board(models.Model):
-    title = models.CharField(max_length=55)
+    title = models.CharField(max_length=65)
     created_by = models.ForeignKey(user, related_name='user_boards', on_delete=CASCADE)
     board_group = models.ManyToManyField(user, related_name='boards_imin')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # board.created_by.username
-    # board.status_columns
-    # board.status-columns.cards
+    # board.columns
+    # board.columns.cards
 
-class status(models.Model):
+class columns(models.Model):
     title = models.CharField(max_length=55)
-    created_by = models.ForeignKey(user, related_name='status_columns', on_delete=CASCADE)
-    for_board = models.ForeignKey(board, related_name='status_columns', on_delete=CASCADE)
-    color = models.CharField(max_length=25, default='light-gray')
+    created_by = models.ForeignKey(user, related_name='columns', on_delete=CASCADE)
+    board = models.ForeignKey(board, related_name='columns', on_delete=CASCADE)
+    color = models.CharField(max_length=24, default='lite-gray')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # status.cards
+    # columns.cards
 
 class card(models.Model):
+    subject = models.CharField(max_length=65)
     content = models.TextField()
     created_by = models.ForeignKey(user, related_name='cards', on_delete=CASCADE)
-    status = models.ForeignKey(status, related_name='cards', on_delete=CASCADE)
+    status = models.ForeignKey(columns, related_name='cards', on_delete=CASCADE)
     owners = models.ManyToManyField(user, related_name='working_on')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # card.user
-    # card.status
+    # card.columns
     # card.owners
     # color = models.CharField(max_length=25)  deprecating to have status hold color only
