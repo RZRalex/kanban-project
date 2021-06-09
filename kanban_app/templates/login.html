@@ -12,6 +12,18 @@
         <span class="w3-bar-item w3-padding-16">Can Do</span>
     </div>
     <div class="w3-container">
+
+        {% if messages %}
+                <div class="w3-panel w3-display-container w3-pale-red w3-border">
+                    <span onclick="this.parentElement.style.display='none'"
+                    class="w3-button w3-display-topright">X</span>
+                    {% for message in messages %}
+                        <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                    {% endfor %}
+                </div>
+        {% endif %}
+
+
         <div class="w3-half w3-border-right">
             <div class="w3-container">
                 <h2>Registration</h2>
@@ -52,7 +64,7 @@
             <div class="w3-container">
                 <h2>Login</h2>
             </div>
-            <form action="#" method="POST" class="w3-container">
+            <form action="/login" method="POST" class="w3-container">
                 {% csrf_token %}
                 <div class="w3-margin-bottom">
                     <label for="email">Email</label>

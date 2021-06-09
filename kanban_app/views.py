@@ -6,8 +6,11 @@ import bcrypt
 # Create your views here.
 
 def landing(request):
+    print('session user id:', request.session['user_id'], 'session board id:', request.session['board_id'])
     if 'user_id' not in request.session:
         return redirect('/info')
+    else:
+        return redirect('/complete')
 
 def signup(request):
     return render(request, 'login.html')
@@ -46,23 +49,23 @@ def register(request):
 
     first_column = columns.objects.create(
         title = "Work to Do",
-        created_by = user.objects.get(id=new_user.id),
-        board = board.objects.get(id=new_board.id)
+        created_by = user.objects.get(id=new_user),
+        board = board.objects.get(id=new_board)
     )
 
     first_card = card.objects.create(
         subject = "Create Cards",
         content = "Make cards to keep track of a task or job that needs to be done.",
-        created_by = user.objects.get(id=new_user.id),
-        status = columns.objects.get(id=first_column.id),
+        created_by = user.objects.get(id=new_user),
+        status = columns.objects.get(id=first_column),
         # owners = user.objects.get(id=new_user.id),
     )
     
     second_card = card.objects.create(
         subject = "Create Cards",
         content = "Make cards to keep track of a task or job that needs to be done.",
-        created_by = user.objects.get(id=new_user.id),
-        status = columns.objects.get(id=first_column.id),
+        created_by = user.objects.get(id=new_user),
+        status = columns.objects.get(id=first_column),
         # owners = user.objects.get(id=new_user.id),
     )
     return redirect('/complete')
@@ -73,19 +76,59 @@ def home(request):
     if 'user_id' not in request.session:
         return redirect('/info')
 
+    if 'board_id' not in request.session:
+        return redirect('/select')
+
     User = user.objects.get(id=request.session['user_id'])
     home_board = board.objects.get(id=request.session['board_id'])
+    columns = home_board.columns.all()
 
     context = {
         'user' : User,
-        'work_board' : home_board
+        'board' : home_board,
+        'Columns' : columns
     }
     return render(request, 'home.html', context)
 
 
-
 def reenter(request):
-    pass
+    if request.method == 'GET':
+        return redirect('/info')
+
+    email = request.POST['email']
+    password = request.POST['pw']
+
+    if not user.objects.authenticate(email, password):
+        messages.error(request, "Invalid email or password")
+        return redirect('/info')
+
+    User = user.objects.get(email=email)
+    request.session['user_id'] = User.id
+
+    print('user id#', User.id)
+    return redirect('/select')
+
+
+def select(request):
+    if 'user_id' not in request.session:
+        return redirect('/')
+
+    User = user.objects.get(id=request.session['user_id'])
+    myboards = board.objects.filter(created_by=User)
+
+    context = {
+        'user' : User,
+        'boards' : myboards
+    }
+
+    return render(request, 'select.html', context)
+
+def home_sesh(request, board_id):
+    request.session['board_id'] = board_id
+    return redirect('/complete')
+
+
+
 
 # board actions ------------------------------------------
 
@@ -135,4 +178,5 @@ def edit_info(request):
 # logout ----------------------------------------------------
 
 def logout(request):
-    pass
+    request.session.clear()
+    return redirect('/info')

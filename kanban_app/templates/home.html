@@ -20,7 +20,7 @@
         <a href="#" class="w3-bar-item w3-button w3-padding-16">Profile</a>
         <a href="#" class="w3-bar-item w3-button w3-padding-16">Tasks</a>
         <a href="#" class="w3-bar-item w3-button w3-padding-16">New Board +</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-right">Logout</a>
+        <a href="/logout" class="w3-bar-item w3-button w3-padding-16 w3-right">Logout</a>
     </div>
     <div class="w3-bar w3-amber w3-margin-bottom">
         <h1 class="w3-bar-item">{{ work_board.title }}</h1>
@@ -43,21 +43,22 @@
                 </div>
             </div> -->
 
-            {% for columns in work_board.columns %}
+
             <!-- NEEDS BETTER ITERATION.  'RelatedManager' object is not iterable -->
-            <div class="w3-col tcol w3-border w3-round-xlarge lite-gray">
-                <div class="w3-container w3-border-bottom">
-                    <h3>{{ columns.title }}</h3>
+            {% for column in Columns %}
+                <div class="w3-col tcol w3-border w3-round-xlarge lite-gray">
+                    <div class="w3-container w3-border-bottom">
+                        <h3>{{ column.title }}</h3>
+                    </div>
+                    <div class="notes">
+                        {% for cards in columns.cards.all %}
+                            <div class="w3-container w3-card-4 w3-margin w3-round-large">
+                                <h5>{{ cards.subject }}</h5>
+                                <p><pre>{{ cards.content }}</pre></p>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
-                <div class="notes">
-                    {% for cards in columns.cards %}
-                        <div class="w3-container w3-card-4 w3-margin w3-round-large">
-                            <h4>{{ cards.subject }}</h4>
-                            <p><pre>{{ cards.content }}</pre></p>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
             {% endfor %}
             
             <!-- model column -->
@@ -67,6 +68,7 @@
                 </div>
                 <div class="notes">
                     <div class="w3-container w3-card-4 w3-margin w3-round-large">
+                        <h5>Lorem Card</h5>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
                     </div>
                 </div>

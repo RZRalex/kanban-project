@@ -33,7 +33,14 @@
     background-color: #c5c5c5;
 }
 
+.layout{
+    display: flex;
+    flex-wrap: wrap;
+}
 
+.borderbtn{
+    margin: 8px;
+}
 
 /* .image{
     width: 100%;

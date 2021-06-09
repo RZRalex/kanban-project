@@ -9,6 +9,7 @@ $(document).ready(function(){
         $('#editabout').hide();
         $('#editprof').hide();
     });
+    // consider span to select parent up the tree to hide
 
     $('a.cancel').click(function(){
         $('#editabout').hide();
