@@ -49,23 +49,23 @@ def register(request):
 
     first_column = columns.objects.create(
         title = "Work to Do",
-        created_by = user.objects.get(id=new_user),
-        board = board.objects.get(id=new_board)
+        created_by = user.objects.get(id=new_user.id),
+        board = board.objects.get(id=new_board.id)
     )
 
     first_card = card.objects.create(
         subject = "Create Cards",
         content = "Make cards to keep track of a task or job that needs to be done.",
-        created_by = user.objects.get(id=new_user),
-        status = columns.objects.get(id=first_column),
+        created_by = user.objects.get(id=new_user.id),
+        status = columns.objects.get(id=first_column.id),
         # owners = user.objects.get(id=new_user.id),
     )
     
     second_card = card.objects.create(
-        subject = "Create Cards",
-        content = "Make cards to keep track of a task or job that needs to be done.",
-        created_by = user.objects.get(id=new_user),
-        status = columns.objects.get(id=first_column),
+        subject = "Cards for the Tasks",
+        content = "Put in your tasks to keep track of what you need to do and what is done.",
+        created_by = user.objects.get(id=new_user.id),
+        status = columns.objects.get(id=first_column.id),
         # owners = user.objects.get(id=new_user.id),
     )
     return redirect('/complete')

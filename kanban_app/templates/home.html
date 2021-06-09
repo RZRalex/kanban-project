@@ -44,17 +44,17 @@
             </div> -->
 
 
-            <!-- NEEDS BETTER ITERATION.  'RelatedManager' object is not iterable -->
+            <!-- took out pre tags -->
             {% for column in Columns %}
                 <div class="w3-col tcol w3-border w3-round-xlarge lite-gray">
                     <div class="w3-container w3-border-bottom">
                         <h3>{{ column.title }}</h3>
                     </div>
                     <div class="notes">
-                        {% for cards in columns.cards.all %}
+                        {% for cards in column.cards.all %}
                             <div class="w3-container w3-card-4 w3-margin w3-round-large">
                                 <h5>{{ cards.subject }}</h5>
-                                <p><pre>{{ cards.content }}</pre></p>
+                                <p>{{ cards.content }}</p>
                             </div>
                         {% endfor %}
                     </div>
