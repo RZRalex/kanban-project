@@ -86,7 +86,6 @@ def home(request):
     context = {
         'user' : User,
         'board' : home_board,
-        'Columns' : columns
     }
     return render(request, 'home.html', context)
 
@@ -111,7 +110,7 @@ def reenter(request):
 
 def select(request):
     if 'user_id' not in request.session:
-        return redirect('/')
+        return redirect('/info')
 
     User = user.objects.get(id=request.session['user_id'])
     myboards = board.objects.filter(created_by=User)
@@ -133,7 +132,48 @@ def home_sesh(request, board_id):
 # board actions ------------------------------------------
 
 def create_board(request):
-    pass
+    if request.method == 'GET':
+        return redirect('/select')
+
+    User = user.objects.get(id=request.session['user_id'])
+    new_board = board.objects.create(
+        title = request.POST['projectname'],
+        created_by = User
+    )
+
+    request.session['board_id'] = new_board.id
+    init_board = board.objects.get(id=request.session['board_id'])
+    
+    first_column = columns.objects.create(
+        title = "Work to Do",
+        created_by = User,
+        board = init_board
+    )
+    work_col = columns.objects.get(id=first_column.id)
+    first_card = card.objects.create(
+        subject = "Create Cards",
+        content = "Make cards to keep track of a task or job that needs to be done.",
+        created_by = User,
+        status = work_col,
+    )
+    second_card = card.objects.create(
+        subject = "Cards for Tasks",
+        content = "Put in your tasks to keep track of what you need to do.",
+        created_by = User,
+        status = work_col,
+    )
+    columns.objects.create(
+        title = "In Progress",
+        created_by = User,
+        board = init_board
+    )
+    columns.objects.create(
+        title = "Done",
+        created_by = User,
+        board = init_board
+    )
+    return redirect('/complete')
+
 
 def edit_board(request):
     pass
@@ -143,8 +183,18 @@ def add_group(request):
 
 # column actions ------------------------------------------
 
-def create_column(request):
-    pass
+def create_column(request, board_id):
+    if request.method == 'GET':
+        return redirect('/complete')
+
+    inboard = board.objects.get(id=board_id)
+    thisuser = user.objects.get(id=request.session['user_id'])
+    columns.objects.create(
+        title = request.POST['coltitle'],
+        created_by = thisuser,
+        board = inboard,
+    )
+    return redirect('/complete')
 
 def edit_column(request):
     pass
@@ -152,8 +202,18 @@ def edit_column(request):
 
 # card actions --------------------------------------------
 
-def create_card(request):
-    pass
+def create_card(request, column_id):
+    thisuser = user.objects.get(id=request.session['user_id'])
+    incol = columns.objects.get(id=column_id)
+
+    card.objects.create(
+        subject = request.POST['cardname'],
+        content = request.POST['info'],
+        created_by = thisuser,
+        status = incol
+    )
+    return redirect('/complete')
+
 
 def edit_card(request):
     pass

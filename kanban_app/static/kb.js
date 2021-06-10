@@ -6,14 +6,14 @@ $(document).ready(function(){
     });
 
     $('span',).click(function(){
-        $('#editabout').hide();
-        $('#editprof').hide();
+        // $('#editabout').hide();
+        // $('#editprof').hide();
+        $(this).parent().parent().parent().hide();
     });
-    // consider span to select parent up the tree to hide
+    // consider span to select parent up the tree to hide  DONE
 
     $('a.cancel').click(function(){
-        $('#editabout').hide();
-        $('#editprof').hide();
+        $(this).parent().parent().parent().parent().hide();
     });
 
     $('.profbox').click(function(){
@@ -30,5 +30,17 @@ $(document).ready(function(){
         $('#coladd').hide()
     });
     
+    $('.add-btn').click(function(){
+        $(this).parent().parent().parent().find('div.addcard').show()
+    });
+
+    $('.cardcancel').click(function(){
+        $(this).parent().parent().hide()
+    });
+
+    // Select page
+    $('.newboard').click(function(){
+        $('#addboard').show()
+    });
 });
 

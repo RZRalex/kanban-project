@@ -42,6 +42,32 @@
     margin: 8px;
 }
 
+.col-ui{
+    display: flex;
+    align-items: center;
+    align-content: flex-start;
+}
+
+.col-ui h5{
+    flex-grow: 4;
+}
+
+.addcard{
+    display: none;
+}
+
+.cardok{
+    width: 48%;
+    margin-left: 4px;
+}
+
+.cardcancel{
+    width: 48%;
+    padding: 7px;
+}
+
+
+
 /* .image{
     width: 100%;
 } */

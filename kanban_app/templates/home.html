@@ -17,41 +17,44 @@
 <body>
     <div class="w3-bar w3-light-blue">
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hover-light-blue">Welcome to Can Do</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-16">Profile</a>
+        <a href="/profile/{{ user.id }}" class="w3-bar-item w3-button w3-padding-16">Profile</a>
         <a href="#" class="w3-bar-item w3-button w3-padding-16">Tasks</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-16">New Board +</a>
+        <a href="/select" class="w3-bar-item w3-button w3-padding-16">New Board +</a>
         <a href="/logout" class="w3-bar-item w3-button w3-padding-16 w3-right">Logout</a>
     </div>
     <div class="w3-bar w3-amber w3-margin-bottom">
-        <h1 class="w3-bar-item">{{ work_board.title }}</h1>
+        <h1 class="w3-bar-item">{{ board.title }}</h1>
     </div>
 
     <div class="wrapper">
         <div class="w3-row" id="workspace">
 
-            <!-- <div class="w3-col tcol w3-border w3-round-xlarge"> 
-                <div class="w3-container w3-border-bottom w3-light-blue">       
-                    <h3>Work Pool</h3>
-                </div>
-                <div class="notes">
-                    <div class="w3-container w3-card-4 w3-margin w3-round-large w3-light-blue">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
-                    </div>
-                    <div class="w3-container w3-card-4 w3-margin w3-round-large w3-light-blue">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos.</p>
-                    </div>
-                </div>
-            </div> -->
-
-
             <!-- took out pre tags -->
-            {% for column in Columns %}
+            {% for column in board.columns.all %}
                 <div class="w3-col tcol w3-border w3-round-xlarge lite-gray">
-                    <div class="w3-container w3-border-bottom">
-                        <h3>{{ column.title }}</h3>
+                    <div class="col-ui w3-container w3-border-bottom">
+                        <h5>{{ column.title }}</h5>
+                        <div>
+                            <button class="edit-btn w3-button w3-circle w3-right"><i class="fas fa-ellipsis-v"></i></button>
+                            <button class="add-btn w3-button w3-circle w3-right"><i class="fas fa-plus fa-fw w3-small"></i></button>
+                        </div>
                     </div>
                     <div class="notes">
-                        {% for cards in column.cards.all %}
+                        <div class="addcard w3-container w3-card-4 w3-margin w3-round-large">
+                            <form action="/new_card/{{ column.id }}" method="POST">
+                                {% csrf_token %}
+                                <p>
+                                    <label for="acard">New Card Title</label>
+                                    <input type="text" id="acard" name="cardname" class="w3-input w3-border w3-light-grey">
+                                </p>
+                                <p>
+                                    <textarea name="info" id="text" cols="30" rows="3" placeholder="Enter a Note" class="w3-input"></textarea>
+                                </p>
+                                <button type="submit" class="cardok w3-button w3-green w3-round w3-margin-bottom">Enter</button>
+                                <a class="cardcancel w3-button w3-border w3-text-red w3-border-gray w3-round w3-margin-bottom w3-right">Cancel</a>
+                            </form>
+                        </div>
+                        {% for cards in column.cards.all reversed %}
                             <div class="w3-container w3-card-4 w3-margin w3-round-large">
                                 <h5>{{ cards.subject }}</h5>
                                 <p>{{ cards.content }}</p>
@@ -62,7 +65,7 @@
             {% endfor %}
             
             <!-- model column -->
-            <div class="w3-col tcol w3-border w3-round-xlarge lite-gray">
+            <!-- <div class="w3-col tcol w3-border w3-round-xlarge lite-gray">
                 <div class="w3-container w3-border-bottom">
                     <h3>Done</h3>
                 </div>
@@ -72,7 +75,7 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut in molestias soluta tenetur nam rem officia, nisi eos. Suscipit, porro tempora quae odio error minus soluta laborum neque magni laboriosam?</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
             
             <!-- <div class="w3-col addcol w3-round-xlarge">
@@ -93,17 +96,24 @@
         <div class="w3-modal-content">
             <div class="w3-container">
                 <span class="w3-button w3-display-topright">&times;</span>
-                <form action="" method="POST">
+                <form action="/new_column/{{ board.id }}" method="POST">
                     {% csrf_token %}
                     <p>
                     <label for="colm">Column Title</label>
                     <input type="text" id="colm" name="coltitle" class="w3-input w3-border w3-light-grey"></p>
 
                     <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
+                    <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
                 </form>
             </div>
         </div>
     </div>
+
+
+    <!-- New Card Modal -->
+    
+
+    <!-- Edit Board title Modal -->
 
 </body>
 </html>

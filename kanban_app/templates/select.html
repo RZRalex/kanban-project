@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="w3-bar w3-light-blue">
-        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hover-light-blue">Welcome to Can Do {{ user.first_name }}</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hover-light-blue">Welcome to Can Do, {{ user.first_name }}</a>
         <a href="/profile/{{ user.id }}" class="w3-bar-item w3-button w3-padding-16">Profile</a>
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-disabled">Tasks</a>
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-disabled">New Board +</a>
@@ -40,15 +40,13 @@
                 </a>
             {% endfor %}
             
-            
-            <a href="" class="borderbtn w3-button w3-round-xlarge w3-border">
+
+            <button class="newboard borderbtn w3-button w3-round-xlarge w3-border">
                 <h4>Create New Board</h4>
                 <i class="fas fa-plus fa-fw w3-large"></i>
-            </a>
+            </button>
 
         </div>
-
-
 
         <div class="w3-container w3-opacity w3-border-bottom w3-margin-bottom">
             <h2>Boards I'm In</h2>
@@ -62,6 +60,32 @@
 
 
         </div>
+
+        <!-- Modal forms -->
+
+        <div id="addboard" class="w3-modal">
+            <div class="w3-modal-content">
+                <div class="w3-container w3-light-blue">
+                    <h3>Create a New Project</h3>
+                </div>
+                <div class="w3-container">
+                    <span class="w3-button w3-display-topright">&times;</span>
+                    <form action="/new_board" class="w3-container" method="POST">
+                        {% csrf_token %}
+                        <p>
+                            <label for="project" class="w3-text-light-blue">Name your Project</label></p>
+                            <input type="text" class="w3-input w3-light-grey" id="project" name="projectname" placeholder="New Project Board" maxlength="65">
+                        
+                        <br>
+                        <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
+                        <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
 </body>
 </html>

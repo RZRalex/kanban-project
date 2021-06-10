@@ -8,5 +8,8 @@ urlpatterns = [
     path('login', views.reenter),
     path('logout', views.logout),
     path('select', views.select),
-    path('work/<int:board_id>', views.home_sesh)
+    path('work/<int:board_id>', views.home_sesh),
+    path('new_board', views.create_board),
+    path('new_column/<int:board_id>', views.create_column),
+    path('new_card/<int:column_id>', views.create_card)
 ]
