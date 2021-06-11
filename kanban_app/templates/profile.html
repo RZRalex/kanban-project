@@ -15,11 +15,10 @@
 <body>
     <!-- insert navbar -->
     <div class="w3-bar w3-light-blue">
-        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hover-light-blue">Welcome to Can Do</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-16">Profile</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-16">Tasks</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-16">New Board +</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-right">Logout</a>
+        <a href="/complete" class="w3-bar-item w3-button w3-padding-16 w3-hover-light-blue">Welcome to Can Do</a>
+        <a href="/profile/{{ user.id }}" class="w3-bar-item w3-button w3-padding-16">Profile</a>
+        <a href="/select" class="w3-bar-item w3-button w3-padding-16">New Board +</a>
+        <a href="/logout" class="w3-bar-item w3-button w3-padding-16 w3-right">Logout</a>
     </div>
 
     <div class="w3-content w3-margin-top w3-light-grey">
@@ -32,10 +31,10 @@
                     </div> -->
                     
                     <div class="w3-container">
-                        <h2><i class="fa fa-user fa-fw w3-margin-right w3-large w3-text-light-blue"></i>Profile Person</h2>
-                        <p><i class="fa fa-at fa-fw w3-margin-right w3-large w3-text-light-blue"></i>Username</p>
-                        <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-light-blue"></i>ex@mail.com</p>
-                        <p><i class="fa fa-calendar fa-fw w3-margin-right w3-large w3-text-light-blue"></i>Member since:</p>
+                        <h2><i class="fa fa-user fa-fw w3-margin-right w3-large w3-text-light-blue"></i>{{ thisuser.first_name }} {{ thisuser.last_name }}</h2>
+                        <p><i class="fa fa-at fa-fw w3-margin-right w3-large w3-text-light-blue"></i>{{ thisuser.username }}</p>
+                        <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-light-blue"></i>{{ thisuser.email }}</p>
+                        <p><i class="fa fa-calendar fa-fw w3-margin-right w3-large w3-text-light-blue"></i>Member since: {{ thisuser.created_at }}</p>
                         
                         <button class="profbox w3-button w3-round-large w3-right w3-margin-bottom"><i class="fa fa-edit w3-large w3-text-light-blue"></i>Edit</button>
                     </div>
@@ -49,7 +48,7 @@
                     <h2 class="w3-text-grey w3-padding-16"><i class="fas fa-book-reader w3-margin-right w3-xxlarge w3-text-light-blue"></i>About Me</h2>
                     <div class="w3-container">
                         <!-- user.about_me goes here -->
-                        <p>Lorem ipsum dolor sit amet. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
+                        <p>{{ thisuser.about_me }}</p>
                         <!-- button for Modal -->
                         <button class="editbox w3-button w3-round-large w3-right w3-margin-bottom"><i class="fa fa-edit w3-large w3-text-light-blue"></i>Edit</button>
                     </div>
@@ -84,10 +83,10 @@
             </div>
             <div class="w3-container">
                 <span class="w3-button w3-display-topright">&times;</span>
-                <form action="#" class="w3-container" method="POST">
+                <form action="{{ thisuser.id }}/editabout" class="w3-container" method="POST">
                     {% csrf_token %}
                     <h5>Edit your About Me</h5>
-                    <textarea name="aboutme" id="abt" cols="60" rows="5" class="w3-input w3-margin-bottom"></textarea>
+                    <textarea name="aboutme" id="abt" cols="60" rows="5" class="w3-input w3-margin-bottom">{{ thisuser.about_me }}</textarea>
                     <br>
                     <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
                     <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
@@ -105,24 +104,24 @@
             </div>
             <div class="w3-container">
                 <span class="w3-button w3-display-topright">&times;</span>
-                <form action="#" class="w3-container" method="POST">
+                <form action="{{ thisuser.id }}/editinfo" class="w3-container" method="POST">
                     {% csrf_token %}
                     <h5>Edit your Profile</h5>
                     <p>
                     <label for="fname">First Name</label>
-                    <input type="text" id="fname" name="first" class="w3-input w3-border w3-light-grey"></p>
+                    <input type="text" id="fname" name="first" class="w3-input w3-border w3-light-grey" value="{{ thisuser.first_name }}"></p>
 
                     <p>
                     <label for="lname">Last Name</label>
-                    <input type="text" id="lname" name="last" class="w3-input w3-border w3-light-grey"></p>
+                    <input type="text" id="lname" name="last" class="w3-input w3-border w3-light-grey" value="{{ thisuser.last_name }}"></p>
 
                     <p>
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="uname" class="w3-input w3-border w3-light-grey"></p>
+                    <input type="text" id="username" name="uname" class="w3-input w3-border w3-light-grey" value="{{ thisuser.username }}"></p>
 
                     <p>
                     <label for="em">Email</label>
-                    <input type="email" id="em" name="email" class="w3-input w3-border w3-light-grey"></p>
+                    <input type="email" id="em" name="email" class="w3-input w3-border w3-light-grey" value="{{ thisuser.email }}"></p>
                     
                     <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
                     <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>

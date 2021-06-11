@@ -11,5 +11,11 @@ urlpatterns = [
     path('work/<int:board_id>', views.home_sesh),
     path('new_board', views.create_board),
     path('new_column/<int:board_id>', views.create_column),
-    path('new_card/<int:column_id>', views.create_card)
+    path('new_card/<int:column_id>', views.create_card),
+    path('edit_board/<int:board_id>', views.edit_board),
+    path('edit_col/<int:column_id>', views.edit_column),
+    path('edit_card/<int:card_id>', views.edit_card),
+    path('profile/<int:user_id>', views.profile),
+    path('profile/<int:user_id>/editabout', views.edit_about),
+    path('profile/<int:user_id>/editinfo', views.edit_info),
 ]

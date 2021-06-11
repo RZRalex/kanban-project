@@ -6,7 +6,6 @@ import bcrypt
 # Create your views here.
 
 def landing(request):
-    print('session user id:', request.session['user_id'], 'session board id:', request.session['board_id'])
     if 'user_id' not in request.session:
         return redirect('/info')
     else:
@@ -81,7 +80,7 @@ def home(request):
 
     User = user.objects.get(id=request.session['user_id'])
     home_board = board.objects.get(id=request.session['board_id'])
-    columns = home_board.columns.all()
+    # columns = home_board.columns.all()
 
     context = {
         'user' : User,
@@ -175,8 +174,15 @@ def create_board(request):
     return redirect('/complete')
 
 
-def edit_board(request):
-    pass
+def edit_board(request, board_id):
+    if request.method == 'GET':
+        return redirect('/complete')
+
+    project = board.objects.get(id=board_id)
+    project.title = request.POST['boardname']
+    project.save()
+    return redirect('/complete')
+
 
 def add_group(request):
     pass
@@ -196,13 +202,25 @@ def create_column(request, board_id):
     )
     return redirect('/complete')
 
-def edit_column(request):
+def edit_column(request, column_id):
+    if request.method == 'GET':
+        return redirect('/complete')
+
+    editcol = columns.objects.get(id=column_id)
+    editcol.title = request.POST['colname']
+    editcol.save()
+    return redirect('/complete')
+
+def delete_column(request, column_id):
     pass
 
 
 # card actions --------------------------------------------
 
 def create_card(request, column_id):
+    if request.method == 'GET':
+        return redirect('/complete')
+
     thisuser = user.objects.get(id=request.session['user_id'])
     incol = columns.objects.get(id=column_id)
 
@@ -215,24 +233,55 @@ def create_card(request, column_id):
     return redirect('/complete')
 
 
-def edit_card(request):
-    pass
+def edit_card(request, card_id):
+    if request.method == 'GET':
+        return redirect('/complete')
+    
+    editcard = card.objects.get(id=card_id)
+    editcard.subject = request.POST['cardedit']
+    editcard.content = request.POST['editinfo']
+    editcard.save()
+    return redirect('/complete')
 
 def move_card(request):
     pass
 
-
+def delete_card(request):
+    pass
 
 # profile actions -----------------------------------------
 
-def profile(request):
-    pass
+def profile(request, user_id):
+    if 'user_id' not in request.session:
+        return redirect('/info')
 
-def edit_about(request):
-    pass
+    view_user = user.objects.get(id=user_id)
+    context = {
+        'thisuser' : view_user
+    }
+    return render(request, 'profile.html', context)
 
-def edit_info(request):
-    pass
+def edit_about(request, user_id):
+    if request.method == 'GET':
+        return redirect(f'/profile/{user_id}')
+    
+    user_edit = user.objects.get(id=user_id)
+    user_edit.about_me = request.POST['aboutme']
+    user_edit.save()
+    return redirect(f'/profile/{user_id}')
+    
+
+def edit_info(request, user_id):
+    if request.method == 'GET':
+        return redirect(f'/profile/{user_id}')
+
+    user_info = user.objects.get(id=user_id)
+    user_info.first_name = request.POST['first']
+    user_info.last_name = request.POST['last']
+    user_info.username = request.POST['uname']
+    user_info.email = request.POST['email']
+    user_info.save()
+    return redirect(f'/profile/{user_id}')
 
 
 # logout ----------------------------------------------------

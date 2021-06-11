@@ -18,12 +18,14 @@
     <div class="w3-bar w3-light-blue">
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hover-light-blue">Welcome to Can Do</a>
         <a href="/profile/{{ user.id }}" class="w3-bar-item w3-button w3-padding-16">Profile</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-16">Tasks</a>
         <a href="/select" class="w3-bar-item w3-button w3-padding-16">New Board +</a>
         <a href="/logout" class="w3-bar-item w3-button w3-padding-16 w3-right">Logout</a>
     </div>
-    <div class="w3-bar w3-amber w3-margin-bottom">
+    <div class="title w3-bar w3-amber w3-margin-bottom">
         <h1 class="w3-bar-item">{{ board.title }}</h1>
+        <button class="edit-btn w3-button">
+            <h2><i class="fas fa-edit w3-xlarge"></i></h2>
+        </button>
     </div>
 
     <div class="wrapper">
@@ -31,13 +33,25 @@
 
             <!-- took out pre tags -->
             {% for column in board.columns.all %}
-                <div class="w3-col tcol w3-border w3-round-xlarge lite-gray">
+                <div class="w3-col tcol w3-border w3-round-xlarge {{ column.color }}">
                     <div class="col-ui w3-container w3-border-bottom">
-                        <h5>{{ column.title }}</h5>
+                        <h5 class="title">{{ column.title }}</h5>
+                        <form action="/edit_col/{{ column.id }}" class="colinput">
+                            {% csrf_token %}
+                            <p>
+                                <input type="text" name="colname" class="w3-input" value="{{ column.title }}">
+                            </p>
+                            <button type="submit" class="w3-button"><i class="fas fa-check-circle  w3-medium w3-text-green"></i></button>
+                            <i class="colcancel fas fa-times-circle w3-button w3-medium w3-text-red"></i>
+                            <!-- <button class="del w3-button w3-tiny w3-red w3-right w3-hover-black">Delete Column</button> -->
+                            <!-- delete column btn needs to be elsewhere to submit properly -->
+                            <!-- <button class="editok w3-button w3-small w3-circle"></button> -->
+                        </form>
                         <div>
-                            <button class="edit-btn w3-button w3-circle w3-right"><i class="fas fa-ellipsis-v"></i></button>
+                            <button class="ellips-btn w3-button w3-circle w3-right"><i class="fas fa-ellipsis-v"></i></button>
                             <button class="add-btn w3-button w3-circle w3-right"><i class="fas fa-plus fa-fw w3-small"></i></button>
                         </div>
+                        
                     </div>
                     <div class="notes">
                         <div class="addcard w3-container w3-card-4 w3-margin w3-round-large">
@@ -55,9 +69,22 @@
                             </form>
                         </div>
                         {% for cards in column.cards.all reversed %}
-                            <div class="w3-container w3-card-4 w3-margin w3-round-large">
+                            <div class="cardst w3-container w3-card-4 w3-margin w3-round-large">
                                 <h5>{{ cards.subject }}</h5>
-                                <p>{{ cards.content }}</p>
+                                <button class="card-edit w3-button w3-tiny w3-circle w3-right"><i class="fas fa-ellipsis-v"></i></button>
+                                <p class="content">{{ cards.content }}</p>
+                                <!-- insert edit card content -->
+                                <form action="/edit_card/{{ cards.id }}" method="POST" class="card_form">
+                                    {% csrf_token %}
+                                    <p>
+                                        <input type="text" name="cardedit" class="w3-input w3-border w3-light-grey" value="{{ cards.subject }}">
+                                    </p>
+                                    <p>
+                                        <textarea name="editinfo" cols="30" rows="3" class="w3-input">{{ cards.content }}</textarea>
+                                    </p>
+                                    <button type="submit" class="cardok w3-button w3-green w3-round w3-margin-bottom">Enter</button>
+                                    <a class="cardno w3-button w3-border w3-text-red w3-border-gray w3-round w3-margin-bottom w3-right">Cancel</a>
+                                </form>
                             </div>
                         {% endfor %}
                     </div>
@@ -77,10 +104,6 @@
                 </div>
             </div> -->
             
-            
-            <!-- <div class="w3-col addcol w3-round-xlarge">
-                <a href=""><h4><i class="fas fa-plus fa-fw w3-medium"></i> Add column</h4></a>
-            </div> -->
             <button class="w3-col addcol w3-button w3-round-xlarge"><h4><i class="fas fa-plus fa-fw w3-medium"></i> Add column</h4></button>
 
     
@@ -110,7 +133,23 @@
     </div>
 
 
-    <!-- New Card Modal -->
+    <!-- Edit Board Title Modal -->
+    <div id="editproject" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container">
+                <span class="w3-button w3-display-topright">&times;</span>
+                <form action="/edit_board/{{ board.id }}" method="POST">
+                    {% csrf_token %}
+                    <p>
+                    <label for="bedit">Project Title</label>
+                    <input type="text" id="bedit" name="boardname" class="w3-input w3-border w3-light-grey"></p>
+
+                    <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
+                    <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
     
 
     <!-- Edit Board title Modal -->

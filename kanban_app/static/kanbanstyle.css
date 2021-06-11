@@ -5,6 +5,13 @@
     margin-right: 8px;
 }
 
+.title{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+
+
 .tcol{
     width: 325px;
     height: 700px;
@@ -14,10 +21,32 @@
     overflow-y: hidden;
 }
 
+form.colinput{
+    display: none;
+}
+
 .notes{
     overflow-x: hidden;
     overflow-y: auto;
     height: 92%;
+}
+
+.cardst{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cardst h5{
+    white-space: nowrap;
+    flex-grow: 2;
+}
+
+.cardst button{
+    padding: 5px 20px;
+}
+
+.cardst p{
+    align-self: flex-end;
 }
 
 .addcol{
@@ -27,10 +56,6 @@
     margin: 0 8px;
     flex-shrink: 0;
     text-align: center;
-}
-
-.lite-gray .notes .w3-container, .lite-gray .w3-container{
-    background-color: #c5c5c5;
 }
 
 .layout{
@@ -61,12 +86,69 @@
     margin-left: 4px;
 }
 
+.card_form{
+    display: none;
+}
+
+.cardno{
+    width: 48%;
+    padding: 4px;
+}
+
 .cardcancel{
     width: 48%;
     padding: 7px;
 }
 
 
+
+/* COLORS */
+
+.lite-gray .notes .w3-container, .lite-gray .w3-container{
+    background-color: #c5c5c5;
+}
+
+.red .notes .w3-container, .red .w3-container{
+    background-color: rgb(194, 66, 66);
+}
+
+.orange .notes .w3-container, .orange .w3-container{
+    background-color: #ffc107;
+}
+
+.yellow .notes .w3-container, .yellow .w3-container{
+    background-color: #f0e68c;
+}
+
+.forest-green .notes .w3-container, .forest-green .w3-container{
+    background-color: rgb(25, 104, 25);
+    color: whitesmoke;
+}
+
+.lime-green .notes .w3-container, .lime-green .w3-container{
+    background-color: lightgreen;
+}
+
+.sky-blue .notes .w3-container, .sky-blue .w3-container{
+    background-color: lightskyblue;
+}
+
+.sea-blue .notes .w3-container, .sea-blue .w3-container{
+    background-color: mediumblue;
+    color: whitesmoke;
+}
+
+.indigo .notes .w3-container, .indigo .w3-container{
+    background-color: #3f51b5;
+}
+
+.violet .notes .w3-container, .violet .w3-container{
+    background-color: darkorchid;
+}
+
+.pink .notes .w3-container, .pink .w3-container{
+    background-color: pink;
+}
 
 /* .image{
     width: 100%;
