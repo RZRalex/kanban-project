@@ -47,6 +47,7 @@ form.colinput{
 
 .cardst p{
     align-self: flex-end;
+    width: 260px;
 }
 
 .addcol{
@@ -110,6 +111,11 @@ form.colinput{
 
 .red .notes .w3-container, .red .w3-container{
     background-color: rgb(194, 66, 66);
+    color: whitesmoke;
+}
+
+.test{
+    background-color: seagreen;
 }
 
 .orange .notes .w3-container, .orange .w3-container{

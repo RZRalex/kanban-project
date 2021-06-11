@@ -31,7 +31,6 @@
     <div class="wrapper">
         <div class="w3-row" id="workspace">
 
-            <!-- took out pre tags -->
             {% for column in board.columns.all %}
                 <div class="w3-col tcol w3-border w3-round-xlarge {{ column.color }}">
                     <div class="col-ui w3-container w3-border-bottom">
@@ -53,7 +52,7 @@
                         </div>
                         
                     </div>
-                    <div class="notes">
+                    <div class="notes sortablecol">
                         <div class="addcard w3-container w3-card-4 w3-margin w3-round-large">
                             <form action="/new_card/{{ column.id }}" method="POST">
                                 {% csrf_token %}
@@ -72,6 +71,7 @@
                             <div class="cardst w3-container w3-card-4 w3-margin w3-round-large">
                                 <h5>{{ cards.subject }}</h5>
                                 <button class="card-edit w3-button w3-tiny w3-circle w3-right"><i class="fas fa-ellipsis-v"></i></button>
+                                <hr>
                                 <p class="content">{{ cards.content }}</p>
                                 <!-- insert edit card content -->
                                 <form action="/edit_card/{{ cards.id }}" method="POST" class="card_form">

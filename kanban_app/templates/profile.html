@@ -20,7 +20,15 @@
         <a href="/select" class="w3-bar-item w3-button w3-padding-16">New Board +</a>
         <a href="/logout" class="w3-bar-item w3-button w3-padding-16 w3-right">Logout</a>
     </div>
-
+    {% if messages %}
+                <div class="w3-panel w3-display-container w3-pale-red w3-border">
+                    <span onclick="this.parentElement.style.display='none'"
+                    class="w3-button w3-display-topright">X</span>
+                    {% for message in messages %}
+                        <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                    {% endfor %}
+                </div>
+        {% endif %}
     <div class="w3-content w3-margin-top w3-light-grey">
         <div class="w3-row-padding">
 
@@ -109,11 +117,11 @@
                     <h5>Edit your Profile</h5>
                     <p>
                     <label for="fname">First Name</label>
-                    <input type="text" id="fname" name="first" class="w3-input w3-border w3-light-grey" value="{{ thisuser.first_name }}"></p>
+                    <input type="text" id="fname" name="fname" class="w3-input w3-border w3-light-grey" value="{{ thisuser.first_name }}"></p>
 
                     <p>
                     <label for="lname">Last Name</label>
-                    <input type="text" id="lname" name="last" class="w3-input w3-border w3-light-grey" value="{{ thisuser.last_name }}"></p>
+                    <input type="text" id="lname" name="lname" class="w3-input w3-border w3-light-grey" value="{{ thisuser.last_name }}"></p>
 
                     <p>
                     <label for="username">Username</label>

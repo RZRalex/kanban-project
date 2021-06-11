@@ -69,6 +69,24 @@ $(document).ready(function(){
         $('#editproject').show()
     });
 
+
+    // Drag and Drop Functions
+
+    $('div.sortablecol').sortable({
+        connectWith: 'div.sortablecol'
+    });
+
+    $('div.sortablecol').sortable({
+        stop: function(event, ui) {
+            console.log('card has landed')
+        }
+    })
+
+    $('div.sortablecol').disableSelection();
+
+
+
+
     // Select page
     $('.newboard').click(function(){
         $('#addboard').show()

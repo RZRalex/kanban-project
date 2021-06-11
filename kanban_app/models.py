@@ -3,6 +3,8 @@ from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
 import re, bcrypt
 
+from django.http import request
+
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 USER_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+$')
 
@@ -10,7 +12,7 @@ class usermanager(models.Manager):
     def validator(self, postData):
         errors = {}
         if len(postData['fname']) < 2:
-            errors['first_name'] = "User name should be at least 2 characters"
+            errors['first_name'] = "User's first name should be at least 2 characters"
         if len(postData['lname']) < 2:
             errors['last_name'] = "User's last name should be at least 2 characters"
         if len(postData['uname']) < 5:
@@ -28,6 +30,22 @@ class usermanager(models.Manager):
             errors['password len'] = "Password should be less than 32 characters"
         if postData['pw'] != postData['confpw']:
             errors['match'] = "Passwords should match each other"
+        return errors
+
+    def editvalid(self, postData):
+        errors = {}
+        if len(postData['fname']) < 2:
+            errors['first_name'] = "User's first name should be at least 2 characters"
+        if len(postData['lname']) < 2:
+            errors['last_name'] = "User's last name should be at least 2 characters"
+        if len(postData['uname']) < 5:
+            errors['username'] = "Username should be at least 5 characters"
+        if not USER_REGEX.match(postData['uname']):
+            errors['username'] = "Username should not have specialized symbols or spaces"
+        if not EMAIL_REGEX.match(postData['email']):
+            errors['email'] = "Invalid email address"
+
+        # find a way to check username and email is used but excluding this current user
         return errors
 
     def authenticate(self, email, password):

@@ -187,6 +187,9 @@ def edit_board(request, board_id):
 def add_group(request):
     pass
 
+def delete_board(request):
+    pass
+
 # column actions ------------------------------------------
 
 def create_column(request, board_id):
@@ -275,9 +278,15 @@ def edit_info(request, user_id):
     if request.method == 'GET':
         return redirect(f'/profile/{user_id}')
 
+    errors = user.objects.editvalid(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f'/profile/{user_id}')
+
     user_info = user.objects.get(id=user_id)
-    user_info.first_name = request.POST['first']
-    user_info.last_name = request.POST['last']
+    user_info.first_name = request.POST['fname']
+    user_info.last_name = request.POST['lname']
     user_info.username = request.POST['uname']
     user_info.email = request.POST['email']
     user_info.save()
