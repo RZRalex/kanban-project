@@ -5,7 +5,7 @@ $(document).ready(function(){
         $('#editabout').show();
     });
 
-    $('span',).click(function(){
+    $('span.profile').click(function(){
         // $('#editabout').hide();
         // $('#editprof').hide();
         $(this).parent().parent().parent().hide();
@@ -62,34 +62,77 @@ $(document).ready(function(){
     });
 
     $('.cardcancel').click(function(){
-        $(this).parent().parent().hide()
+        $(this).parent().parent().hide();
     });
 
     $('.edit-btn').click(function(){
-        $('#editproject').show()
+        $('#editproject').show();
+    });
+
+    $('.delbtn').click(function(){
+        $(this).parent().parent().find('div.delprt').show();
+        
+    });
+
+    $('.delcolbtn').click(function(){
+        $(this).parent().parent().parent().find('div.delcol').show()
+    });
+
+    $('span.card').click(function(){
+        $(this).parent().hide();
     });
 
 
     // Drag and Drop Functions
 
-    $('div.sortablecol').sortable({
-        connectWith: 'div.sortablecol'
-    });
+    var column = document.querySelectorAll('div.sortablecol');
+    for (var i = 0; i < column.length; i++){
+        const columns = column[i];
+        $(columns).sortable({
+            connectWith: 'div.sortablecol',
+            receive: function(event,ui) {
+                console.log("card has landed");
+                var card_id = $(ui.item).attr('id');
+                var col_id = $(columns).attr('id');
+                console.log('card id:', card_id, 'column_id', col_id);
+                $.ajax({
+                    url: 'move_card',
+                    type: 'POST',
+                    data: {
+                        'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val(),
+                        'cardid' : card_id,
+                        'column' : col_id
+                    }
+                });
+            }
+        });
+    };
 
-    $('div.sortablecol').sortable({
-        stop: function(event, ui) {
-            console.log('card has landed')
-        }
-    })
-
-    $('div.sortablecol').disableSelection();
-
-
-
+    // $('div.sortablecol').disableSelection();
 
     // Select page
     $('.newboard').click(function(){
         $('#addboard').show()
     });
+
+    $('.deletebrd').click(function(){
+        if($(this).parent().find('div.delbrd').is(':hidden')){
+            $(this).parent().find('div.delbrd').show()
+        } else {
+            $(this).parent().find('div.delbrd').hide()
+        }
+    });
+
+
+    // Friend page
+
+    $('.addy').click(function(){
+        if($(this).parent().find('div.addfr').is(':hidden')){
+            $(this).parent().find('div.addfr').show()
+        } else {
+            $(this).parent().find('div.addfr').hide()
+        }
+    });
+
 });
 

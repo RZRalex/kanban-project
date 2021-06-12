@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="../static/kanbanstyle.css">
+    <link rel="stylesheet" href="{% static 'kanbanstyle.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/solid.css" integrity="sha384-LA8Ug4T/nhVkyhrSmSirsoAo9iDrBk8E7U80aSPeD+w3vO8PzOJIS6agGcbIwwX0" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'jquery-ui.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/fontawesome.css" integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../static/kb.js" defer></script>
+    <script src="{% static 'jquery-ui.js' %}" defer></script> 
+    <script src="{% static 'kb.js' %}" defer></script>
     <title>User Profile</title>
 </head>
 <body>
     <!-- insert navbar -->
     <div class="w3-bar w3-light-blue">
         <a href="/complete" class="w3-bar-item w3-button w3-padding-16 w3-hover-light-blue">Welcome to Can Do</a>
-        <a href="/profile/{{ user.id }}" class="w3-bar-item w3-button w3-padding-16">Profile</a>
-        <a href="/select" class="w3-bar-item w3-button w3-padding-16">New Board +</a>
+        <a href="/profile/{{ thisuser.id }}" class="w3-bar-item w3-button w3-padding-16 w3-hover-blue">Profile</a>
+        <a href="/select" class="w3-bar-item w3-button w3-padding-16 w3-hover-green">New Board +</a>
+        <a href="/friends" class="w3-bar-item w3-button w3-padding-16 w3-hover-indigo">Friends</a>
         <a href="/logout" class="w3-bar-item w3-button w3-padding-16 w3-right">Logout</a>
     </div>
     {% if messages %}
@@ -42,13 +46,12 @@
                         <h2><i class="fa fa-user fa-fw w3-margin-right w3-large w3-text-light-blue"></i>{{ thisuser.first_name }} {{ thisuser.last_name }}</h2>
                         <p><i class="fa fa-at fa-fw w3-margin-right w3-large w3-text-light-blue"></i>{{ thisuser.username }}</p>
                         <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-light-blue"></i>{{ thisuser.email }}</p>
-                        <p><i class="fa fa-calendar fa-fw w3-margin-right w3-large w3-text-light-blue"></i>Member since: {{ thisuser.created_at }}</p>
+                        <p><i class="fa fa-calendar fa-fw w3-margin-right w3-large w3-text-light-blue"></i>Member since: {{ thisuser.created_at|date:'M-d-Y' }}</p>
                         
                         <button class="profbox w3-button w3-round-large w3-right w3-margin-bottom"><i class="fa fa-edit w3-large w3-text-light-blue"></i>Edit</button>
                     </div>
                 </div>
             </div>
-
 
             <div class="w3-twothird">
     
@@ -60,26 +63,21 @@
                         <!-- button for Modal -->
                         <button class="editbox w3-button w3-round-large w3-right w3-margin-bottom"><i class="fa fa-edit w3-large w3-text-light-blue"></i>Edit</button>
                     </div>
-
                 </div>
 
                 <div class="w3-container w3-card w3-white">
-                    <h2 class="w3-text-grey w3-padding-16"><i class="fas fa-sticky-note w3-margin-right w3-xxlarge w3-text-light-blue"></i>Task Cards</h2>
-                    
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fas fa-sticky-note w3-margin-right w3-xxlarge w3-text-light-blue"></i>{{ thisuser.username }}'s Boards</h2>
                     <!-- Task cards to generate -->
-                    <div class="w3-container"> 
-                        <h5 class="w3-opacity"><b>W3Schools.com</b></h5>
-                        <p>Web Development! All I need to know in one place</p>
-                        <hr>
-                    </div>
-
-
-
+                        {% for boards in thisuser.user_boards.all %}
+                            <div class="w3-container w3-border w3-round-large w3-margin"> 
+                                <h5 class="w3-opacity"><b>{{ boards.title }}</b></h5>
+                                <p>{{ boards.created_at|date:'M-d-Y' }}</p>
+                            </div>
+                        {% endfor %}
                 </div>
                 <!-- End Right Column -->
             </div>
         </div>
-
         <!-- End of content -->
     </div>
 
@@ -90,7 +88,7 @@
                 <h3>Your Info</h3>
             </div>
             <div class="w3-container">
-                <span class="w3-button w3-display-topright">&times;</span>
+                <span class="profile w3-button w3-display-topright">&times;</span>
                 <form action="{{ thisuser.id }}/editabout" class="w3-container" method="POST">
                     {% csrf_token %}
                     <h5>Edit your About Me</h5>
@@ -111,26 +109,22 @@
                 <h3>Your Info</h3>
             </div>
             <div class="w3-container">
-                <span class="w3-button w3-display-topright">&times;</span>
+                <span class="profile w3-button w3-display-topright">&times;</span>
                 <form action="{{ thisuser.id }}/editinfo" class="w3-container" method="POST">
                     {% csrf_token %}
                     <h5>Edit your Profile</h5>
                     <p>
                     <label for="fname">First Name</label>
                     <input type="text" id="fname" name="fname" class="w3-input w3-border w3-light-grey" value="{{ thisuser.first_name }}"></p>
-
                     <p>
                     <label for="lname">Last Name</label>
                     <input type="text" id="lname" name="lname" class="w3-input w3-border w3-light-grey" value="{{ thisuser.last_name }}"></p>
-
                     <p>
                     <label for="username">Username</label>
                     <input type="text" id="username" name="uname" class="w3-input w3-border w3-light-grey" value="{{ thisuser.username }}"></p>
-
                     <p>
                     <label for="em">Email</label>
                     <input type="email" id="em" name="email" class="w3-input w3-border w3-light-grey" value="{{ thisuser.email }}"></p>
-                    
                     <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
                     <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
                 </form>

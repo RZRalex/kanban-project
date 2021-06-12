@@ -4,60 +4,65 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="../static/kanbanstyle.css">
+    <link rel="stylesheet" href="{% static 'kanbanstyle.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/solid.css" integrity="sha384-LA8Ug4T/nhVkyhrSmSirsoAo9iDrBk8E7U80aSPeD+w3vO8PzOJIS6agGcbIwwX0" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/jquery-ui.css">
+    <link rel="stylesheet" href="{% static 'jquery-ui.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/fontawesome.css" integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../static/jquery-ui.js" defer></script>
-    <script src="../static/kb.js" defer></script>
+    <script src="{% static 'jquery-ui.js' %}" defer></script> 
+    <script src="{% static 'kb.js' %}" defer></script>
     <title>Select Work Space</title>
 </head>
 <body>
     <div class="w3-bar w3-light-blue">
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hover-light-blue">Welcome to Can Do, {{ user.first_name }}</a>
-        <a href="/profile/{{ user.id }}" class="w3-bar-item w3-button w3-padding-16">Profile</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-disabled">New Board +</a>
+        <a href="/profile/{{ user.id }}" class="w3-bar-item w3-button w3-padding-16 w3-hover-blue">Profile</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-disabled w3-hover-green">New Board +</a>
+        <a href="/friends" class="w3-bar-item w3-button w3-padding-16 w3-hover-indigo">Friends</a>
         <a href="/logout" class="w3-bar-item w3-button w3-padding-16 w3-right">Logout</a>
     </div>
-
 
     <div class="w3-container">
         <div class="w3-container w3-opacity w3-border-bottom w3-margin-bottom">
             <h2>My Boards</h2>
         </div>
         <!-- board buttons -->
-
-
         <div class="layout">
 
             {% for board in boards %}
-                <a href="/work/{{ board.id }}" class="borderbtn w3-button w3-round-xlarge w3-border">
-                    <h4>{{ board.title }}</h4>
-                    <p>created: {{ board.created_at }}</p>
-                </a>
+                <div class="pbord w3-container w3-round-xlarge w3-border">
+                    <h4><a href="/work/{{ board.id }}" class="boardlink">{{ board.title }}</a></h4>
+                    <p>created: {{ board.created_at|date:'M-d-Y' }}</p>
+                    
+                    <i class="deletebrd w3-button w3-medium fas fa-trash-alt w3-text-gray w3-hover-text-red"></i>
+                    <div class="delbrd w3-card-4 w3-container">
+                        <p>Are you sure you want to delete this project board?</p>
+                        <form action="delete_board/{{ board.id }}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="w3-button w3-border w3-border-red w3-hover-text-red w3-round">Delete?</button>
+                        </form>
+                    </div>
+                    
+                </div>
             {% endfor %}
             
-
-            <button class="newboard borderbtn w3-button w3-round-xlarge w3-border">
+            <button class="newboard pbord w3-button w3-round-xlarge w3-border">
                 <h4>Create New Board</h4>
                 <i class="fas fa-plus fa-fw w3-large"></i>
             </button>
-
         </div>
 
         <div class="w3-container w3-opacity w3-border-bottom w3-margin-bottom">
             <h2>Boards I'm In</h2>
         </div>
         <div class="layout">
-            <a href="" class="borderbtn w3-button w3-round-xlarge w3-border">
+            <a href="" class="pbord w3-button w3-round-xlarge w3-border">
                 <h4>Board a Friend Made</h4>
                 <p>last updated at:</p>
                 <p>created by:</p>
             </a>
-
-
         </div>
 
         <!-- Modal forms -->
@@ -74,7 +79,6 @@
                         <p>
                             <label for="project" class="w3-text-light-blue">Name your Project</label></p>
                             <input type="text" class="w3-input w3-light-grey" id="project" name="projectname" placeholder="New Project Board" maxlength="65">
-                        
                         <br>
                         <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
                         <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
@@ -82,8 +86,6 @@
                 </div>
             </div>
         </div>
-
-
 
     </div>
 </body>

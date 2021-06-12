@@ -34,6 +34,7 @@ form.colinput{
 .cardst{
     display: flex;
     flex-wrap: wrap;
+    width: 291px;
 }
 
 .cardst h5{
@@ -64,7 +65,7 @@ form.colinput{
     flex-wrap: wrap;
 }
 
-.borderbtn{
+.pbord{
     margin: 8px;
 }
 
@@ -101,6 +102,45 @@ form.colinput{
     padding: 7px;
 }
 
+div.delprt{
+    display: none;
+    width: 260px;
+}
+
+div.delcol{
+    display: none;
+    width: 268px;
+}
+
+div.delbrd{
+    width: 250px;
+    white-space: initial;
+    padding-bottom: 16px;
+    border-radius: 12px;
+    background-color: rgb(224, 180, 180);
+    border: 2px solid red;
+    margin: 16px 0;
+    display: none;
+}
+
+div.addfr{
+    width: 165px;
+    white-space: initial;
+    padding-bottom: 16px;
+    border-radius: 12px;
+    background-color: rgb(180, 210, 224);
+    border: 2px solid cornflowerblue;
+    margin: 16px 0;
+    display: none;
+}
+
+.boardlink{
+    text-decoration: none;
+}
+
+.boardlink:hover{
+    text-decoration: underline;
+}
 
 
 /* COLORS */
@@ -146,6 +186,7 @@ form.colinput{
 
 .indigo .notes .w3-container, .indigo .w3-container{
     background-color: #3f51b5;
+    color: whitesmoke;
 }
 
 .violet .notes .w3-container, .violet .w3-container{
@@ -156,6 +197,3 @@ form.colinput{
     background-color: pink;
 }
 
-/* .image{
-    width: 100%;
-} */

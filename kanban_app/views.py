@@ -27,7 +27,6 @@ def register(request):
     password = request.POST['pw']
     pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
     
-
     new_user = user.objects.create(
         first_name = request.POST['fname'],
         last_name = request.POST['lname'],
@@ -118,14 +117,21 @@ def select(request):
         'user' : User,
         'boards' : myboards
     }
-
     return render(request, 'select.html', context)
+
+
+def list(request):
+    userslist = user.objects.all()
+    User = user.objects.get(id=request.session['user_id'])
+    context = {
+        'user' : User,
+        'friends' : userslist
+    }
+    return render(request, 'friends.html', context)
 
 def home_sesh(request, board_id):
     request.session['board_id'] = board_id
     return redirect('/complete')
-
-
 
 
 # board actions ------------------------------------------
@@ -187,8 +193,13 @@ def edit_board(request, board_id):
 def add_group(request):
     pass
 
-def delete_board(request):
-    pass
+def delete_board(request, board_id):
+    if request.method == 'GET':
+        return redirect('/select')
+    
+    elim_board = board.objects.get(id=board_id)
+    elim_board.delete()
+    return redirect('/select')
 
 # column actions ------------------------------------------
 
@@ -211,11 +222,16 @@ def edit_column(request, column_id):
 
     editcol = columns.objects.get(id=column_id)
     editcol.title = request.POST['colname']
+    editcol.color = request.POST['colorize']
     editcol.save()
     return redirect('/complete')
 
 def delete_column(request, column_id):
-    pass
+    if request.method == 'GET':
+        return redirect('/complete')
+    dropcol = columns.objects.get(id=column_id)
+    dropcol.delete()
+    return redirect('/complete')
 
 
 # card actions --------------------------------------------
@@ -247,10 +263,26 @@ def edit_card(request, card_id):
     return redirect('/complete')
 
 def move_card(request):
-    pass
+    if request.method == 'GET':
+        return redirect('/complete')
+    # print(f'card number {card_id} has moved')
+    card_id = request.POST['cardid']
+    col_id = request.POST['column']
+    print('card id:',card_id , 'column id:',col_id)
+    card_moved = card.objects.get(id=card_id)
+    column_receive = columns.objects.get(id=col_id)
+    card_moved.status = column_receive
+    card_moved.save()
+    return redirect('/complete')
 
-def delete_card(request):
-    pass
+def delete_card(request, card_id):
+    if request.method == 'GET':
+        return redirect('/complete')
+    
+    card_elim = card.objects.get(id=card_id)
+    card_elim.delete()
+    return redirect('/complete')
+
 
 # profile actions -----------------------------------------
 

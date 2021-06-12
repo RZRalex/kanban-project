@@ -18,12 +18,12 @@ This method gives an easy view and optimized flow of work in progress that leave
 - [ ]  Users can be added to a card as the task "owner". There could be multiple users assigned to a card [Many-to-many]
 - [x]  Users also have a profile page which can display details about them and which tasks they are assigned to [django-engine]
 - [x]  User may [edit] profile or task data
-- [ ]  User may [delete] profile or tasks
+- [x]  User may [delete] profile or tasks
 - [ ]  People who are not logged in can see the kanban board but they cannot edit [protected]
-- [ ]  Application will have features like drag and drop and nice styling [static] content (CSS, images, JS)
+- [x]  Application will have features like drag and drop and nice styling [static] content (CSS, images, JS)
 - [x]  Tasks will have [validated] inputs to thoroughly explain the work at hand
 
 ## Bonus Stretch
 - [ ]  May contain [file-uploads] for profile pictures
 - [ ]  Cards may have checkboxes for jobs in a list that can only be moved after all checks are done.
-- [ ]  Drag and drop will [update] status of task card as you move it.
+- [x]  Drag and drop will [update] status of task card as you move it.
