@@ -1,3 +1,9 @@
+# Can Do Board
+
+## **How to Use** (6/11/2021)
+This board is made to help you organize and plan how you need to execute a project. When you log on, a few columns and tasks are generated. You can drag and drop the tasks to each column to help you keep track of your progress. The board name, columns, and each card can be edited to keep track of tasks, jobs, and information within. The columns specifically can have different colors for better visual organization through their editing menus. You can change boards and start new ones. Look at your profile and change your info. View the names of other people using the app (full friend implementation coming soon). 
+A Can Do board gives an easy view and optimized flow of work in progress that leaves room for continuous improvement.
+
 # Proposed Project: **KANBAN BOARD**
 
 I am going to make a Kanban board website fitted for multiple unique users to create, edit, and accomplish tasks together. A kanban board is an organizational tool useful for projects between one or multiple people to manage what needs to be done. There are usually columns to represent work in various stages of the process like "To Do", "Doing", and "Complete". Individual tasks or jobs are written on cards and are moved across the columns to show progess and coordinate teams that are doing the work. 
