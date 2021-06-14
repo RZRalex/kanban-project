@@ -16,7 +16,7 @@ urlpatterns = [
     path('edit_board/<int:board_id>', views.edit_board),
     path('edit_col/<int:column_id>', views.edit_column),
     path('edit_card/<int:card_id>', views.edit_card),
-    path('move_card', views.move_card), # move card line
+    path('move_card', views.move_card),
     path('profile/<int:user_id>', views.profile),
     path('profile/<int:user_id>/editabout', views.edit_about),
     path('profile/<int:user_id>/editinfo', views.edit_info),

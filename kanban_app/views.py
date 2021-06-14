@@ -36,7 +36,7 @@ def register(request):
     )
     request.session['user_id'] = new_user.id
 
-    print('password:', password, new_user.first_name, new_user.email)
+    # print('password:', password, new_user.first_name, new_user.email)
 
     new_board = board.objects.create(
         title = "New Project Board",
@@ -45,12 +45,12 @@ def register(request):
 
     request.session['board_id'] = new_board.id
 
+    # create starter columns and cards
     first_column = columns.objects.create(
         title = "Work to Do",
         created_by = user.objects.get(id=new_user.id),
         board = board.objects.get(id=new_board.id)
     )
-
     first_card = card.objects.create(
         subject = "Create Cards",
         content = "Make cards to keep track of a task or job that needs to be done.",
@@ -58,13 +58,24 @@ def register(request):
         status = columns.objects.get(id=first_column.id),
         # owners = user.objects.get(id=new_user.id),
     )
-    
     second_card = card.objects.create(
-        subject = "Cards for the Tasks",
-        content = "Put in your tasks to keep track of what you need to do and what is done.",
+        subject = "Drag and Drop-ability",
+        content = "You can take your task cards in one column and put them in another column to better organize your work.",
         created_by = user.objects.get(id=new_user.id),
         status = columns.objects.get(id=first_column.id),
         # owners = user.objects.get(id=new_user.id),
+    )
+    next_column = columns.objects.create(
+        title = "Work in Progress",
+        created_by = user.objects.get(id=new_user.id),
+        board = board.objects.get(id=new_board.id),
+        color = 'yellow'
+    )
+    done_column = columns.objects.create(
+        title = "Work Done",
+        created_by = user.objects.get(id=new_user.id),
+        board = board.objects.get(id=new_board.id),
+        color = 'forest-green'
     )
     return redirect('/complete')
 
@@ -291,8 +302,10 @@ def profile(request, user_id):
         return redirect('/info')
 
     view_user = user.objects.get(id=user_id)
+    logged_in = user.objects.get(id=request.session['user_id'])
     context = {
-        'thisuser' : view_user
+        'thisuser' : view_user,
+        'user' : logged_in
     }
     return render(request, 'profile.html', context)
 
