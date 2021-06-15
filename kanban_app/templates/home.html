@@ -8,6 +8,16 @@
     </button>
 </div>
 
+{% if messages %}
+                <div class="w3-panel w3-display-container w3-pale-red w3-border">
+                    <span onclick="this.parentElement.style.display='none'"
+                    class="w3-button w3-display-topright">X</span>
+                    {% for message in messages %}
+                        <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                    {% endfor %}
+                </div>
+        {% endif %}
+
 <div class="wrapper">
     <div class="w3-row" id="workspace"> <!--Begin Workspace. Columns and cards display here-->
 
@@ -18,7 +28,7 @@
                     <form action="/edit_col/{{ column.id }}" method="POST" class="colinput">
                         {% csrf_token %}
                         <p>
-                            <input type="text" name="colname" class="w3-input" value="{{ column.title }}">
+                            <input type="text" name="coltitle" class="w3-input" value="{{ column.title }}">
                         </p>
                         <button type="submit" class="w3-button"><i class="fas fa-check-circle  w3-medium w3-text-green"></i></button>
                         <i class="colcancel fas fa-times-circle w3-button w3-medium w3-text-red"></i>
@@ -76,10 +86,10 @@
                             <form action="/edit_card/{{ cards.id }}" method="POST" class="card_form">
                                 {% csrf_token %}
                                 <p>
-                                    <input type="text" name="cardedit" class="w3-input w3-border w3-light-grey" value="{{ cards.subject }}">
+                                    <input type="text" name="cardname" class="w3-input w3-border w3-light-grey" value="{{ cards.subject }}">
                                 </p>
                                 <p>
-                                    <textarea name="editinfo" cols="30" rows="3" class="w3-input">{{ cards.content }}</textarea>
+                                    <textarea name="info" cols="30" rows="3" class="w3-input">{{ cards.content }}</textarea>
                                 </p>
                                 <button type="submit" class="cardok w3-button w3-green w3-round w3-margin-bottom">Enter</button>
                                 <a class="cardno w3-button w3-border w3-text-red w3-border-gray w3-round w3-margin-bottom w3-right">Cancel</a>

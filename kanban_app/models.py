@@ -56,6 +56,22 @@ class usermanager(models.Manager):
 
         return bcrypt.checkpw(password.encode(), user.password.encode())
 
+class colmanager(models.Manager):
+    def nonull(self, postData):
+        errors = {}
+        if len(postData['coltitle']) < 1:
+            errors['column_title'] = "Have at least one (1) character in the column title"
+        return errors
+
+class cardmanager(models.Manager):
+    def validatecard(self, postData):
+        errors = {}
+        if len(postData['cardname']) < 1:
+            errors['subject_line'] = "Have at least one (1) character in the subject line of a card"
+        if len(postData['info']) < 2:
+            errors['card_info'] = "Have at least two (2) characters in the information section of a card"
+        return errors
+
 # Create your models here.
 class user(models.Model):
     first_name = models.CharField(max_length=55)
@@ -90,6 +106,7 @@ class columns(models.Model):
     color = models.CharField(max_length=24, default='lite-gray')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = colmanager()
     # columns.cards
 
 class card(models.Model):
@@ -101,6 +118,7 @@ class card(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = cardmanager()
     # card.user
     # card.columns
     # card.owners

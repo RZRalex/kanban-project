@@ -218,6 +218,12 @@ def create_column(request, board_id):
     if request.method == 'GET':
         return redirect('/complete')
 
+    errors = columns.objects.nonull(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/complete')
+
     inboard = board.objects.get(id=board_id)
     thisuser = user.objects.get(id=request.session['user_id'])
     columns.objects.create(
@@ -231,8 +237,14 @@ def edit_column(request, column_id):
     if request.method == 'GET':
         return redirect('/complete')
 
+    errors = columns.objects.nonull(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/complete')
+
     editcol = columns.objects.get(id=column_id)
-    editcol.title = request.POST['colname']
+    editcol.title = request.POST['coltitle']
     editcol.color = request.POST['colorize']
     editcol.save()
     return redirect('/complete')
@@ -251,6 +263,12 @@ def create_card(request, column_id):
     if request.method == 'GET':
         return redirect('/complete')
 
+    errors = card.objects.validatecard(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/complete')
+
     thisuser = user.objects.get(id=request.session['user_id'])
     incol = columns.objects.get(id=column_id)
 
@@ -266,10 +284,16 @@ def create_card(request, column_id):
 def edit_card(request, card_id):
     if request.method == 'GET':
         return redirect('/complete')
+
+    errors = card.objects.validatecard(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/complete')
     
     editcard = card.objects.get(id=card_id)
-    editcard.subject = request.POST['cardedit']
-    editcard.content = request.POST['editinfo']
+    editcard.subject = request.POST['cardname']
+    editcard.content = request.POST['info']
     editcard.save()
     return redirect('/complete')
 
