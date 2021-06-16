@@ -9,7 +9,7 @@
     <div class="layout">
         {% for friend in friends %}
             <div class="pbord w3-container w3-round-xlarge w3-border">
-                <h4><a href="#" class="boardlink">{{ friend.username }}</a></h4>
+                <h4><a href="profile/{{ friend.id }}" class="boardlink">{{ friend.username }}</a></h4>
                 <p>{{ friend.first_name }} {{ friend.last_name }}</p>
                 
                 <i class="addy w3-button w3-medium fas fa-user-plus w3-text-gray w3-hover-text-blue"></i>

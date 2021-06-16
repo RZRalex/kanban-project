@@ -24,8 +24,9 @@
                     <p><i class="fa fa-at fa-fw w3-margin-right w3-large w3-text-light-blue"></i>{{ thisuser.username }}</p>
                     <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-light-blue"></i>{{ thisuser.email }}</p>
                     <p><i class="fa fa-calendar fa-fw w3-margin-right w3-large w3-text-light-blue"></i>Member since: {{ thisuser.created_at|date:'M-d-Y' }}</p>
-                    
+                    {% if thisuser.id == user.id %}
                     <button class="profbox w3-button w3-round-large w3-right w3-margin-bottom"><i class="fa fa-edit w3-large w3-text-light-blue"></i>Edit</button>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -38,7 +39,9 @@
                     <!-- user.about_me goes here -->
                     <p>{{ thisuser.about_me }}</p>
                     <!-- button for Modal -->
+                    {% if thisuser.id == user.id %}
                     <button class="editbox w3-button w3-round-large w3-right w3-margin-bottom"><i class="fa fa-edit w3-large w3-text-light-blue"></i>Edit</button>
+                    {% endif %}
                 </div>
             </div>
 
@@ -59,53 +62,57 @@
 </div>
 
 <!-- Editing Modal -->
-<div id="editabout" class="w3-modal">
-    <div class="w3-modal-content">
-        <div class="w3-container w3-light-blue">
-            <h3>Your Info</h3>
-        </div>
-        <div class="w3-container">
-            <span class="profile w3-button w3-display-topright">&times;</span>
-            <form action="{{ thisuser.id }}/editabout" class="w3-container" method="POST">
-                {% csrf_token %}
-                <h5>Edit your About Me</h5>
-                <textarea name="aboutme" id="abt" cols="60" rows="5" class="w3-input w3-margin-bottom">{{ thisuser.about_me }}</textarea>
-                <br>
-                <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
-                <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
-            </form>
+{% if thisuser.id == user.id %}
+    <div id="editabout" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container w3-light-blue">
+                <h3>Your Info</h3>
+            </div>
+            <div class="w3-container">
+                <span class="profile w3-button w3-display-topright">&times;</span>
+                <form action="{{ thisuser.id }}/editabout" class="w3-container" method="POST">
+                    {% csrf_token %}
+                    <h5>Edit your About Me</h5>
+                    <textarea name="aboutme" id="abt" cols="60" rows="5" class="w3-input w3-margin-bottom">{{ thisuser.about_me }}</textarea>
+                    <br>
+                    <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
+                    <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+{% endif %}
 
 
 <!-- Prof Modal -->
-<div id="editprof" class="w3-modal">
-    <div class="w3-modal-content">
-        <div class="w3-container w3-light-blue">
-            <h3>Your Info</h3>
-        </div>
-        <div class="w3-container">
-            <span class="profile w3-button w3-display-topright">&times;</span>
-            <form action="{{ thisuser.id }}/editinfo" class="w3-container" method="POST">
-                {% csrf_token %}
-                <h5>Edit your Profile</h5>
-                <p>
-                <label for="fname">First Name</label>
-                <input type="text" id="fname" name="fname" class="w3-input w3-border w3-light-grey" value="{{ thisuser.first_name }}"></p>
-                <p>
-                <label for="lname">Last Name</label>
-                <input type="text" id="lname" name="lname" class="w3-input w3-border w3-light-grey" value="{{ thisuser.last_name }}"></p>
-                <p>
-                <label for="username">Username</label>
-                <input type="text" id="username" name="uname" class="w3-input w3-border w3-light-grey" value="{{ thisuser.username }}"></p>
-                <p>
-                <label for="em">Email</label>
-                <input type="email" id="em" name="email" class="w3-input w3-border w3-light-grey" value="{{ thisuser.email }}"></p>
-                <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
-                <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
-            </form>
+{% if thisuser.id == user.id %}
+    <div id="editprof" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container w3-light-blue">
+                <h3>Your Info</h3>
+            </div>
+            <div class="w3-container">
+                <span class="profile w3-button w3-display-topright">&times;</span>
+                <form action="{{ thisuser.id }}/editinfo" class="w3-container" method="POST">
+                    {% csrf_token %}
+                    <h5>Edit your Profile</h5>
+                    <p>
+                    <label for="fname">First Name</label>
+                    <input type="text" id="fname" name="fname" class="w3-input w3-border w3-light-grey" value="{{ thisuser.first_name }}"></p>
+                    <p>
+                    <label for="lname">Last Name</label>
+                    <input type="text" id="lname" name="lname" class="w3-input w3-border w3-light-grey" value="{{ thisuser.last_name }}"></p>
+                    <p>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="uname" class="w3-input w3-border w3-light-grey" value="{{ thisuser.username }}"></p>
+                    <p>
+                    <label for="em">Email</label>
+                    <input type="email" id="em" name="email" class="w3-input w3-border w3-light-grey" value="{{ thisuser.email }}"></p>
+                    <button type="submit" class="w3-button w3-green w3-round w3-margin-bottom">Enter</button>
+                    <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+{% endif %}
 {% endblock %}

@@ -49,7 +49,8 @@ def register(request):
     first_column = columns.objects.create(
         title = "Work to Do",
         created_by = user.objects.get(id=new_user.id),
-        board = board.objects.get(id=new_board.id)
+        board = board.objects.get(id=new_board.id),
+        color = 'orange'
     )
     first_card = card.objects.create(
         subject = "Create Cards",
@@ -75,7 +76,7 @@ def register(request):
         title = "Work Done",
         created_by = user.objects.get(id=new_user.id),
         board = board.objects.get(id=new_board.id),
-        color = 'forest-green'
+        color = 'lime-green'
     )
     return redirect('/complete')
 
@@ -163,7 +164,8 @@ def create_board(request):
     first_column = columns.objects.create(
         title = "Work to Do",
         created_by = User,
-        board = init_board
+        board = init_board,
+        color = 'orange'
     )
     work_col = columns.objects.get(id=first_column.id)
     first_card = card.objects.create(
@@ -173,20 +175,22 @@ def create_board(request):
         status = work_col,
     )
     second_card = card.objects.create(
-        subject = "Cards for Tasks",
-        content = "Put in your tasks to keep track of what you need to do.",
+        subject = "Drag and Drop-ability",
+        content = "You can take your task cards in one column and put them in another column to better organize your work.",
         created_by = User,
         status = work_col,
     )
     columns.objects.create(
         title = "In Progress",
         created_by = User,
-        board = init_board
+        board = init_board,
+        color = 'yellow'
     )
     columns.objects.create(
         title = "Done",
         created_by = User,
-        board = init_board
+        board = init_board,
+        color = 'lime-green'
     )
     return redirect('/complete')
 
