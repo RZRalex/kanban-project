@@ -48,6 +48,7 @@ form.colinput{
 
 .cardst p{
     align-self: flex-end;
+    white-space: break-spaces;
     width: 260px;
 }
 

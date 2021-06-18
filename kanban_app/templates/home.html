@@ -85,12 +85,8 @@
                             <!-- insert edit card content -->
                             <form action="/edit_card/{{ cards.id }}" method="POST" class="card_form">
                                 {% csrf_token %}
-                                <p>
-                                    <input type="text" name="cardname" class="w3-input w3-border w3-light-grey" value="{{ cards.subject }}">
-                                </p>
-                                <p>
-                                    <textarea name="info" cols="30" rows="3" class="w3-input">{{ cards.content }}</textarea>
-                                </p>
+                                    <input type="text" name="cardname" class="w3-input w3-border w3-light-grey w3-margin-bottom" value="{{ cards.subject }}">
+                                    <textarea name="info" cols="30" rows="3" class="w3-input w3-margin-bottom">{{ cards.content }}</textarea>
                                 <button type="submit" class="cardok w3-button w3-green w3-round w3-margin-bottom">Enter</button>
                                 <a class="cardno w3-button w3-border w3-text-red w3-border-gray w3-round w3-margin-bottom w3-right">Cancel</a>
                                 <a class="delbtn w3-button w3-border w3-red w3-round-medium w3-right">Delete</a>
