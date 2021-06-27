@@ -155,10 +155,6 @@ div.addfr{
     color: whitesmoke;
 }
 
-.test{
-    background-color: seagreen;
-}
-
 .orange .notes .w3-container, .orange .w3-container{
     background-color: #ffc107;
 }
@@ -198,3 +194,12 @@ div.addfr{
     background-color: pink;
 }
 
+.black .notes .w3-container, .black .w3-container{
+    background-color: rgb(20, 20, 20);
+    color: whitesmoke;
+}
+
+.white .notes .w3-container, .white .w3-container{
+    background-color: whitesmoke;
+    color: rgb(20, 20, 20);
+}

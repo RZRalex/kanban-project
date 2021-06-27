@@ -234,6 +234,7 @@ def create_column(request, board_id):
         title = request.POST['coltitle'],
         created_by = thisuser,
         board = inboard,
+        color = request.POST['colorize']
     )
     return redirect('/complete')
 
