@@ -56,18 +56,20 @@ class usermanager(models.Manager):
 
         return bcrypt.checkpw(password.encode(), user.password.encode())
 
-    def checkpoint(self, User, verify):
-        users = user.objects.get(id=User)
-        return bcrypt.checkpw(verify.encode(), users.password.encode())
-
-    def multipass(self, newpassword, matchnew):
+    def multipass(self, usernum, postData):
+        users = user.objects.get(id=usernum)
+        check = postData['pwcheck']
         errors = {}
-        if len(newpassword) < 5:
+        if not bcrypt.checkpw(check.encode(), users.password.encode()):
+            errors['password'] = "Current password is incorrect"
+        if len(postData['newpassword']) < 5:
             errors['password'] = "Password should be at least 8 characters long"
-        if len(newpassword) > 32:
-            errors['password len'] = "Password should be less than 32 characters"
-        if newpassword != matchnew:
-            errors['match'] = "Passwords should match each other"
+        if len(postData['newpassword']) > 32:
+            errors['password length'] = "Password should be less than 32 characters"
+        if postData['newpassword'] != postData['matchpassword']:
+            errors['match'] = "New password should match for confirmation"
+        
+        return errors
 
 
 class colmanager(models.Manager):

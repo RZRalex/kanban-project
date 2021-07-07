@@ -367,34 +367,42 @@ def edit_info(request, user_id):
     return redirect(f'/profile/{user_id}')
 
 def edit_pw(request, user_id):
-    pass
+    if request.method == 'GET':
+        return redirect(f'/profile/{user_id}')
+
+    usernum = user_id
+
+    errors = user.objects.multipass(usernum, request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f'/profile/{user_id}')
+
+    password = request.POST['newpassword']
+    pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
+    userpw = user.objects.get(id=user_id)
+    userpw.password = pw_hash
+    userpw.save()
+    return redirect(f'/profile/{user_id}')
+
+
+# def reenter(request):
 #     if request.method == 'GET':
-#         return redirect(f'/profile/{user_id}')
-    
-#     User = user_id
-#     verify = request.POST['pwcheck']
+#         return redirect('/info')
 
-#     if not user.objects.checkpoint(User, verify):
-#         messages.error(request, "Password is incorrect")
-#         return redirect(f'/profile/{user_id}')
+#     email = request.POST['email']
+#     password = request.POST['pw']
 
-#     newpassword = request.POST['newpassword']
-#     matchnew = request.POST['matchpassword']
+#     if not user.objects.authenticate(email, password):
+#         messages.error(request, "Invalid email or password")
+#         return redirect('/info')
 
-#     errors = user.objects.multipass(newpassword, matchnew)
-#     if len(errors) > 0:
-#         for key, value in errors.items():
-#             messages.error(request, value)
-#         return redirect(f'/profile/{user_id}')
+#     User = user.objects.get(email=email)
+#     request.session['user_id'] = User.id
 
-#     pw_hash = bcrypt.hashpw(newpassword.encode(), bcrypt.gensalt()).decode()
-
-#     userpw = user.objects.get(id=user_id)
-#     userpw.password = pw_hash
-#     userpw.save()
-#     return redirect(f'/profile/{user_id}')
-
-
+#     print('user id#', User.id)
+#     return redirect('/select')
 
 # password = request.POST['pw']
     # pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()

@@ -20,6 +20,9 @@ $(document).ready(function(){
         $('#editprof').show();
     });
 
+    // add ajax for password change
+    
+
 
     // home page
     $('.addcol').click(function(){
