@@ -56,6 +56,20 @@ class usermanager(models.Manager):
 
         return bcrypt.checkpw(password.encode(), user.password.encode())
 
+    def checkpoint(self, User, verify):
+        users = user.objects.get(id=User)
+        return bcrypt.checkpw(verify.encode(), users.password.encode())
+
+    def multipass(self, newpassword, matchnew):
+        errors = {}
+        if len(newpassword) < 5:
+            errors['password'] = "Password should be at least 8 characters long"
+        if len(newpassword) > 32:
+            errors['password len'] = "Password should be less than 32 characters"
+        if newpassword != matchnew:
+            errors['match'] = "Passwords should match each other"
+
+
 class colmanager(models.Manager):
     def nonull(self, postData):
         errors = {}

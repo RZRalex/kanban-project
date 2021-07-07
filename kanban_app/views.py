@@ -308,7 +308,7 @@ def move_card(request):
     # print(f'card number {card_id} has moved')
     card_id = request.POST['cardid']
     col_id = request.POST['column']
-    print('card id:',card_id , 'column id:',col_id)
+    # print('card id:',card_id , 'column id:',col_id)
     card_moved = card.objects.get(id=card_id)
     column_receive = columns.objects.get(id=col_id)
     card_moved.status = column_receive
@@ -365,6 +365,51 @@ def edit_info(request, user_id):
     user_info.email = request.POST['email']
     user_info.save()
     return redirect(f'/profile/{user_id}')
+
+def edit_pw(request, user_id):
+    pass
+#     if request.method == 'GET':
+#         return redirect(f'/profile/{user_id}')
+    
+#     User = user_id
+#     verify = request.POST['pwcheck']
+
+#     if not user.objects.checkpoint(User, verify):
+#         messages.error(request, "Password is incorrect")
+#         return redirect(f'/profile/{user_id}')
+
+#     newpassword = request.POST['newpassword']
+#     matchnew = request.POST['matchpassword']
+
+#     errors = user.objects.multipass(newpassword, matchnew)
+#     if len(errors) > 0:
+#         for key, value in errors.items():
+#             messages.error(request, value)
+#         return redirect(f'/profile/{user_id}')
+
+#     pw_hash = bcrypt.hashpw(newpassword.encode(), bcrypt.gensalt()).decode()
+
+#     userpw = user.objects.get(id=user_id)
+#     userpw.password = pw_hash
+#     userpw.save()
+#     return redirect(f'/profile/{user_id}')
+
+
+
+# password = request.POST['pw']
+    # pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+    
+#     new_user = user.objects.create(
+#         first_name = request.POST['fname'],
+#         last_name = request.POST['lname'],
+#         username = request.POST['uname'],
+#         email = request.POST['email'],
+#         password = pw_hash
+#     )
+
+    # if not user.objects.authenticate(email, password):
+    #     messages.error(request, "Invalid email or password")
+    #     return redirect('/info')
 
 
 # logout ----------------------------------------------------
