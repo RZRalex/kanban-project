@@ -214,6 +214,8 @@ def delete_board(request, board_id):
     
     elim_board = board.objects.get(id=board_id)
     elim_board.delete()
+
+    messages.warning(request, "Board has been deleted")
     return redirect('/select')
 
 # column actions ------------------------------------------
@@ -259,6 +261,8 @@ def delete_column(request, column_id):
         return redirect('/complete')
     dropcol = columns.objects.get(id=column_id)
     dropcol.delete()
+
+    messages.warning(request, "Column has been deleted")
     return redirect('/complete')
 
 
@@ -345,6 +349,8 @@ def edit_about(request, user_id):
     user_edit = user.objects.get(id=user_id)
     user_edit.about_me = request.POST['aboutme']
     user_edit.save()
+
+    messages.success(request, "Your story has been successfully changed!")
     return redirect(f'/profile/{user_id}')
     
 
@@ -364,6 +370,8 @@ def edit_info(request, user_id):
     user_info.username = request.POST['uname']
     user_info.email = request.POST['email']
     user_info.save()
+    
+    messages.success(request, "Your info has been successfully changed!")
     return redirect(f'/profile/{user_id}')
 
 def edit_pw(request, user_id):
@@ -371,7 +379,6 @@ def edit_pw(request, user_id):
         return redirect(f'/profile/{user_id}')
 
     usernum = user_id
-
     errors = user.objects.multipass(usernum, request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
@@ -384,40 +391,9 @@ def edit_pw(request, user_id):
     userpw = user.objects.get(id=user_id)
     userpw.password = pw_hash
     userpw.save()
+
+    messages.success(request, "Your password has been successfully changed!")
     return redirect(f'/profile/{user_id}')
-
-
-# def reenter(request):
-#     if request.method == 'GET':
-#         return redirect('/info')
-
-#     email = request.POST['email']
-#     password = request.POST['pw']
-
-#     if not user.objects.authenticate(email, password):
-#         messages.error(request, "Invalid email or password")
-#         return redirect('/info')
-
-#     User = user.objects.get(email=email)
-#     request.session['user_id'] = User.id
-
-#     print('user id#', User.id)
-#     return redirect('/select')
-
-# password = request.POST['pw']
-    # pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-    
-#     new_user = user.objects.create(
-#         first_name = request.POST['fname'],
-#         last_name = request.POST['lname'],
-#         username = request.POST['uname'],
-#         email = request.POST['email'],
-#         password = pw_hash
-#     )
-
-    # if not user.objects.authenticate(email, password):
-    #     messages.error(request, "Invalid email or password")
-    #     return redirect('/info')
 
 
 # logout ----------------------------------------------------

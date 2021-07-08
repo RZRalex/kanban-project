@@ -61,13 +61,13 @@ class usermanager(models.Manager):
         check = postData['pwcheck']
         errors = {}
         if not bcrypt.checkpw(check.encode(), users.password.encode()):
-            errors['password'] = "Current password is incorrect"
+            errors['password'] = "Change canceled. Current password is incorrect"
         if len(postData['newpassword']) < 5:
-            errors['password'] = "Password should be at least 8 characters long"
+            errors['password'] = "Change canceled. Password should be at least 8 characters long"
         if len(postData['newpassword']) > 32:
-            errors['password length'] = "Password should be less than 32 characters"
+            errors['password length'] = "Change canceled. Password should be less than 32 characters"
         if postData['newpassword'] != postData['matchpassword']:
-            errors['match'] = "New password should match for confirmation"
+            errors['match'] = "Change canceled. New password should match for confirmation"
         
         return errors
 

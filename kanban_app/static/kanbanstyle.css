@@ -143,6 +143,19 @@ div.addfr{
     text-decoration: underline;
 }
 
+/* messages colors */
+
+.error{
+    background-color: #ffdddd;
+}
+
+.success{
+    background-color: #dfd;
+}
+
+.warning{
+    background-color: #ffffcc;
+}
 
 /* COLORS */
 

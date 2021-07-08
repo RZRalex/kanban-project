@@ -20,9 +20,11 @@ $(document).ready(function(){
         $('#editprof').show();
     });
 
-    // add ajax for password change
-    
+    $('.error').parent().addClass('error');
 
+    $('.success').parent().addClass('success');
+
+    $('.warning').parent().addClass('warning');
 
     // home page
     $('.addcol').click(function(){

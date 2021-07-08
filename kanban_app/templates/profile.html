@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if messages %}
-            <div class="w3-panel w3-display-container w3-pale-red w3-border">
+<!-- {% if messages %}
+            <div class="w3-panel w3-display-container w3-border">
                 <span onclick="this.parentElement.style.display='none'"
                 class="w3-button w3-display-topright">X</span>
                 {% for message in messages %}
                     <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
                 {% endfor %}
             </div>
-    {% endif %}
+    {% endif %} -->
 <div class="w3-content w3-margin-top w3-light-grey">
     <div class="w3-row-padding">
 
@@ -93,6 +93,17 @@
             </div>
             <div class="w3-container">
                 <span class="profile w3-button w3-display-topright">&times;</span>
+
+                {% if messages %}
+                    <div class="w3-panel w3-display-container w3-border">
+                        <span onclick="this.parentElement.style.display='none'"
+                        class="w3-button w3-display-topright">X</span>
+                        {% for message in messages %}
+                            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
                 <form action="{{ thisuser.id }}/editinfo" class="w3-container" method="POST">
                     {% csrf_token %}
                     <h5>Edit your Profile</h5>
@@ -112,7 +123,7 @@
                     <a class="cancel w3-button w3-border w3-border-red w3-text-red w3-round w3-margin-bottom w3-right">Cancel</a>
                 </form>
                 <hr>
-                <form action="{{ thisuser.id }}/editpass" class="w3-container" method="POST">
+                <form action="{{ thisuser.id }}/editpass" class="w3-container" id="editpass" u-id='{{ thisuser.id }}' method="POST">
                     {% csrf_token %}
                     <h5>Change password</h5>
                     <p>
