@@ -10,7 +10,10 @@
     flex-wrap: nowrap;
 }
 
-
+.board-blue{
+    background-color: #003363;
+    color: whitesmoke;
+}
 
 .tcol{
     width: 325px;
@@ -177,7 +180,7 @@ div.addfr{
 }
 
 .forest-green .notes .w3-container, .forest-green .w3-container{
-    background-color: rgb(25, 104, 25);
+    background-color: rgb(0, 136, 0);
     color: whitesmoke;
 }
 
@@ -201,6 +204,7 @@ div.addfr{
 
 .violet .notes .w3-container, .violet .w3-container{
     background-color: darkorchid;
+    color: whitesmoke;
 }
 
 .pink .notes .w3-container, .pink .w3-container{
