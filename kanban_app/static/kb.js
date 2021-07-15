@@ -94,6 +94,7 @@ $(document).ready(function(){
     for (var i = 0; i < column.length; i++){
         const columns = column[i];
         $(columns).sortable({
+            placeholder: 'cardmakespace',
             connectWith: 'div.sortablecol',
             receive: function(event,ui) {
                 console.log("card has landed");

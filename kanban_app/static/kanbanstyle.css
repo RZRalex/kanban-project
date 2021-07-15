@@ -106,6 +106,10 @@ form.colinput{
     padding: 7px;
 }
 
+.cardmakespace{
+    height: 5em;
+}
+
 div.delprt{
     display: none;
     width: 260px;

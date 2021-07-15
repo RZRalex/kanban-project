@@ -1,4 +1,7 @@
 db.sqlite3
+__pycache__/
+.vscode/
+venv/
 kanban_app/__pycache__/
 kanban_app/migrations/
 final_project/__pycache__/
