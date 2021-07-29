@@ -1,8 +1,12 @@
 # Can Do Board
 
-## **How to Use** (6/11/2021)
-This board is made to help you organize and plan how you need to execute a project. When you log on, a few columns and tasks are generated. You can drag and drop the tasks to each column to help you keep track of your progress. The board name, columns, and each card can be edited to keep track of tasks, jobs, and information within. The columns specifically can have different colors for better visual organization through their editing menus. You can change boards and start new ones. Look at your profile and change your info. View the names of other people using the app (full friend implementation coming soon). 
-A Can Do board gives an easy view and optimized flow of work in progress that leaves room for continuous improvement.
+## **Deployed!**
+Finally [cando-cards](http://www.cando-cards.com) is up and running!
+
+## **How to Use** (7/29/2021)
+This board is made to help you organize and plan how a large project by breaking it into task cards. When you log on, a few columns and tasks are generated. You can drag and drop the tasks to each column to help you keep track of your progress. The board name, columns, and each card can be edited to keep track of tasks, jobs, and information within. The columns can have different colors for better visual organization through their edit menus. You can change boards and even start new ones. Look at your profile and change your info. 
+
+A Can Do board gives an easy view and optimized flow of work-in-progress that leaves room for continuous improvement.
 
 # Proposed Project: **KANBAN BOARD**
 
@@ -21,13 +25,13 @@ This method gives an easy view and optimized flow of work in progress that leave
 - [x] This project will have users [log-in] and create a board. 
 - [x]  The board owner can [create] the different stages of process for their project and create task cards that need to be done
 - [x]  Users can expand view [read] boards and cards from the database
-- [ ]  Users can be added to a card as the task "owner". There could be multiple users assigned to a card [Many-to-many]
 - [x]  Users also have a profile page which can display details about them and which tasks they are assigned to [django-engine]
 - [x]  User may [edit] profile or task data
-- [x]  User may [delete] profile or tasks
-- [ ]  People who are not logged in can see the kanban board but they cannot edit [protected]
+- [x]  User may [delete] boards
 - [x]  Application will have features like drag and drop and nice styling [static] content (CSS, images, JS)
 - [x]  Tasks will have [validated] inputs to thoroughly explain the work at hand
+- [ ]  Users can be added to a card as the task "owner". There could be multiple users assigned to a card [Many-to-many] (Cards are currently only viewed and edited by the creating user)
+- [ ]  People who are not logged in can see the kanban board but they cannot edit [protected] (Currently boards can only be viewed by the users who created them)
 
 ## Bonus Stretch
 - [ ]  May contain [file-uploads] for profile pictures
