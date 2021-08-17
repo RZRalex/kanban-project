@@ -5,3 +5,4 @@ venv/
 kanban_app/__pycache__/
 kanban_app/migrations/
 final_project/__pycache__/
+settings.py
